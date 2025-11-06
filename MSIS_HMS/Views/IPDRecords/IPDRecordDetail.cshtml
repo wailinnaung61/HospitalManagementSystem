@@ -1,0 +1,59 @@
+﻿@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "In Patient Department Record Detail";
+    ViewData["Action"] = "IPDRecordDetail";
+}
+<partial name="_PartialForm" />
+
+@section Scripts
+{
+    <script>
+
+    function onSelectRoomandBed(roomid,bedid = '') {
+        $('#AvailableRoomsandBeds').modal('hide');
+        $("#roomId").val(roomid).trigger('change');
+        $("#bedId").val(bedid).trigger('change');
+    }
+
+    $('#AvailableRoomsandBeds').on('show.bs.modal', function (e) {
+        $.ajax({
+            url: `/IPDRecords/GetAvailableRoomsandBeds`,
+            type: 'get',
+            success: function (res) {
+                debugger;
+                console.log(res);
+                var html = "";
+                for (var i = 0; i < res.length; i++) {
+                    html += ` <tr>
+                                <td>${i+1}</td>
+                                <td>${res[i].ward.name}</td>
+                                <td>${res[i].roomNo}</td>
+                                <td></td>`;
+
+                                 html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id})">Select</button></td></tr>`;
+
+                    if(res[i].beds!=null)
+                    {
+                          for(var j=0;j < res[i].beds.length; j++)
+                          {     html += ` <tr>
+                                <td>${i+1}</td>
+                                <td>${res[i].ward.name}</td>
+                                <td>${res[i].roomNo}</td>`;
+                               html+=`<td>${res[i].beds[j].no}</td>`;
+                               html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id},${res[i].beds[j].id})">Select</button></td></tr>`;
+                          }
+                    }
+                }
+                $("#AvailableRoomsandBedsTableBody").html(html);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+
+            }
+        });
+        })
+
+        $('#AvailableRoomsandBeds').on('hidden.bs.modal', function (e) {
+                $("#AvailableRoomsandBedsTableBody").html("");
+        });
+    </script>
+}

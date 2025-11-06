@@ -1,0 +1,115 @@
+﻿@using X.PagedList
+@model IPagedList<MSIS_HMS.Core.Entities.Module>
+@{
+    var controller = "Modules";
+    ViewData["Title"] = "All "+controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var ModuleName = query["Modulename"];
+    var Code = query["Code"];
+    var DisplayName = query["Displayname"];
+    ViewData["Query"] = query;
+    
+}
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria -multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                        <div class="panel-body">
+                            <form method="get" action="/@controller/Index">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="Name">Name</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="Modulename" value="@ModuleName" id="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="Code">Code</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="Code" value="@Code " id="Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="DisplayName">Display Name</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="Displayname" value="@DisplayName" id="DisplayName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Modules</h2>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <!-- ********************************************** -->
+
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Code</th>
+                                    <th>Display Name</th>
+                                    <th>Display Name (Myanmar)</th>
+                                    <th>Mandatory</th>
+                                    <th>Active</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@((((int) ViewBag.Page - 1) * (int) ViewBag.PageSize) + count)</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Code</td>
+                                        <td>@item.DisplayName</td>
+                                        <td>@item.DisplayName_mm</td>
+                                        <td>@item.IsMandatory</td>
+                                        <td>@item.IsActive</td>
+                                    </tr>
+                                    count++;
+                                }
+                                </tbody>
+                            </table>
+                            <partial name="_Pagination" model="Model" view-data="ViewData"/>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,179 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.IPDRecord
+@{
+    ViewData["Title"] = "Transfer History";
+    ViewData["Action"] = "EditChangeRoom";
+    var count = 1;
+    var controller = "IPDRecords";
+}
+<style>
+    .strikethrough {
+        color: red;
+        text-decoration: line-through;
+    }
+</style>
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <div class="content-body">
+                    <partial name="_PartialPatientProfile" model="@Model" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>From RoomId</th>
+                                        <th>From BedId</th>
+                                        <th>To RoomId</th>
+                                        <th>To BedId</th>
+                                        <th>CheckInTime</th>
+                                        <th>CheckOutTime</th>
+                                        <th>Unit Price</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewData["Histories"] as IEnumerable<MSIS_HMS.Core.Entities.IPDAllotment>)
+                                    {
+                                        @if (@item.IsDelete == true)
+                                        {
+                                            <tr class="strikethrough">
+                                                <td>@count</td>
+                                                <td>@item.Date</td>
+                                                @if (@item.FromRoomNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.FromRoomNo</td>
+                                                }
+                                                @if (@item.FromBedNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.FromBedNo</td>
+                                                }
+                                                <td>@item.ToRoomNo</td>
+                                                @if (@item.ToBedNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.ToBedNo</td>
+                                                }
+                                                @if (@item.CheckInTime == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.CheckInTime</td>
+                                                }
+                                                @if (@item.CheckOutTime == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.CheckOutTime</td>
+                                                }
+                                                <td>@item.UnitPrice</td>
+                                                <td>
+                                                    <a asp-controller="@controller" asp-action="ChangeRoom" asp-route-ipdRecordId="@item.IPDRecordId" asp-route-allotmentId="@item.Id" class="btn btn-xs btn-secondary strikethrough" style="color:red">Edit</a>
+                                                </td>
+                                            </tr>
+                                            count++;
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+                                                <td>@item.Date</td>
+                                                @if (@item.FromRoomNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.FromRoomNo</td>
+                                                }
+                                                @if (@item.FromBedNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.FromBedNo</td>
+                                                }
+                                                <td>@item.ToRoomNo</td>
+                                                @if (@item.ToBedNo == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.ToBedNo</td>
+                                                }
+                                                @if (@item.CheckInTime == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.CheckInTime</td>
+                                                }
+                                                @if (@item.CheckOutTime == null)
+                                                {
+                                                    <td>-</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>@item.CheckOutTime</td>
+                                                }
+                                                <td>@item.UnitPrice</td>
+                                                <td>
+                                                    <a asp-controller="@controller" asp-action="ChangeRoom" asp-route-ipdRecordId="@item.IPDRecordId" asp-route-allotmentId="@item.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                </td>
+                                            </tr>
+                                            count++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <a class="btn btn-click btn-primary gradient-blue pull-right form-group float-right" asp-controller="IPDRecords" asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+            @if (TempData["notice"] != null)
+    {
+        switch ((int)TempData["notice"])
+        {
+            case (int)StatusEnum.NoticeStatus.Success:
+<script>SaveAlert('center', 'success', 'BedTransfer');</script>
+            break;
+            case (int)StatusEnum.NoticeStatus.Edit:
+<script>EditAlert('center', 'success', 'BedTransfer');</script>
+            break;
+            case (int)StatusEnum.NoticeStatus.Delete:
+<script>DeleteAlert('center', 'success', 'BedTransfer');</script>
+            break;
+        }
+
+    }
+    }

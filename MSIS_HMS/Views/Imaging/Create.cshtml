@@ -1,0 +1,37 @@
+﻿@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.LabResult
+@{
+    ViewData["Title"] = "Create Imaging Test";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _labTestId = '@(Model == null ? 0 : Model.LabTestId)';
+        var _technicianId = '@(Model == null ? 0 : Model.TechnicianId)';
+        var _consultantId = '@(Model == null ? 0 : Model.ConsultantId)';
+        var _action = '@ViewEnum.Action.Create.ToDescription()';
+        var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+        var _serviceType = 'LabResultDetails';
+        var _labResultDetails = JSON.parse('@Json.Serialize(Model == null ? new List<LabResultDetail>() : Model.LabResultDetails == null ? new List<LabResultDetail>() : Model.LabResultDetails.ToList())');
+        var _labResultTypes = JSON.parse('@Json.Serialize(Html.GetEnumSelectList<MSIS_HMS.Core.Enums.LabResultType>())');
+        var _labTestType = 'LabResultFiles';
+        var _labResultFiles= JSON.parse('@Json.Serialize(Model == null ? new List<LabResultFile>() : Model.LabResultFiles == null ? new List<LabResultFile>() : Model.LabResultFiles.ToList())');
+    </script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+
+    @*React Select*@
+    <script src="~/js/react/dist/emotion.umd.min.js"></script>
+    <script src="~/js/react/dist/prop-types.min.js"></script>
+    <script src="~/js/react/dist/react-input-autosize.min.js"></script>
+    <script src="~/js/react/dist/react-select.min.js"></script>
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/Imaging.js" type="text/babel"></script>
+}

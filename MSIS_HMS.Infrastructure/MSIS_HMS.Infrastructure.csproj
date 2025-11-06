@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220207083700_CreateStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207083700_CreateStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220207084036_AddStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207084036_AddStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220207084331_AddStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207084331_AddStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220207085015_AddStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207085015_AddStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220207085233_AddStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207085233_AddStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220207085527_AddStaffAndReferrer.cs" />
+    <Compile Remove="Migrations\20220207085527_AddStaffAndReferrer.Designer.cs" />
+    <Compile Remove="Migrations\20220224063459_AddReturnandReturnItemandScratchandScratchItem.cs" />
+    <Compile Remove="Migrations\20220224063459_AddReturnandReturnItemandScratchandScratchItem.Designer.cs" />
+    <Compile Remove="Migrations\20220316060318_AddStateCityandTownshipintoBranch.cs" />
+    <Compile Remove="Migrations\20220316060318_AddStateCityandTownshipintoBranch.Designer.cs" />
+    <Compile Remove="Migrations\20220318072719_Test.cs" />
+    <Compile Remove="Migrations\20220318072719_Test.Designer.cs" />
+    <Compile Remove="Migrations\20220318075246_AddCountryTable.cs" />
+    <Compile Remove="Migrations\20220318075246_AddCountryTable.Designer.cs" />
+    <Compile Remove="Migrations\20220330074537_AddFromTimeToTimeIntoAppointment.cs" />
+    <Compile Remove="Migrations\20220330074537_AddFromTimeToTimeIntoAppointment.Designer.cs" />
+    <Compile Remove="Migrations\20220330075623_AddFromTimeToTimeIntoAppointment.cs" />
+    <Compile Remove="Migrations\20220330075623_AddFromTimeToTimeIntoAppointment.Designer.cs" />
+    <Compile Remove="Migrations\20220330080341_AddFromtimeToTime.cs" />
+    <Compile Remove="Migrations\20220330080341_AddFromtimeToTime.Designer.cs" />
+    <Compile Remove="Migrations\20220419205700_AddOutletFKToWard.cs" />
+    <Compile Remove="Migrations\20220419205700_AddOutletFKToWard.Designer.cs" />
+    <Compile Remove="Migrations\20220420031554_AddPositionTable.cs" />
+    <Compile Remove="Migrations\20220420031554_AddPositionTable.Designer.cs" />
+    <Compile Remove="Migrations\20220421052152_addcolumninIPDAllotment.cs" />
+    <Compile Remove="Migrations\20220421052152_addcolumninIPDAllotment.Designer.cs" />
+    <Compile Remove="Migrations\20220720102254_AddColumnintoOperationTreater.cs" />
+    <Compile Remove="Migrations\20220720102254_AddColumnintoOperationTreater.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\" />
+    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Migrations\" />
+    <None Remove="Helpers\" />
+    <None Remove="Data\Seeding\" />
+    <None Remove="Enums\" />
+    <None Remove="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Data\Seeding\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.21">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSIS_HMS.Core\MSIS_HMS.Core.csproj" />
+  </ItemGroup>
+</Project>

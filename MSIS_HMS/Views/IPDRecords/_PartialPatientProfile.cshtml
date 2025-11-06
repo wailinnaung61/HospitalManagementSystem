@@ -1,0 +1,24 @@
+﻿@model MSIS_HMS.Core.Entities.IPDRecord
+@using MSIS_HMS.Infrastructure.Helpers
+@using MSIS_HMS.Infrastructure.Enums
+<div class="row border-box" style="padding-top: 20px;">
+    <div class="col-md-2">
+        <div class="">
+            <img class="thumbnail" src="@Model.Image" />
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-6">
+                <span><b>@Model.Patient.Name</b></span><br />
+                <span>@StringExtensions.GetAge(Model.Patient.DateOfBirth, Model.Patient.AgeYear, Model.Patient.AgeMonth, Model.Patient.AgeDay)/@Model.Patient.Gender.ToDescription()</span><br />
+                <span><b>IPD No.</b> : @Model.VoucherNo, <b>Room/Bed</b> : @Model.Room.RoomNo@(Model.BedId == null ? "" : ("/" + @Model.Bed.No))</span>
+            </div>
+            <div class="col-md-6">
+                <span><b>Adm. Date/Time</b> : @Model.DOA.ToString("dd/MM/yyyy HH:mmtt")</span><br />
+                <span><b>Department/Ward</b> : @Model.Department.Name/@Model.Room.Ward.Name</span><br />
+                <span><b>Floor</b> : @Model.Room.Ward.Floor.Name</span>
+            </div>
+        </div>
+    </div>
+</div>

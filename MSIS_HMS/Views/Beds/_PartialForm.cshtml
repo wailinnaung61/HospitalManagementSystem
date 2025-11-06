@@ -1,0 +1,82 @@
+﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Bed
+@{
+     var controller = "Beds";
+    ViewData["Title"] = "All "+controller;
+}
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/@controller/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="BranchId" hidden/>
+                                <input asp-for="Id" hidden />
+                            }
+                            <div class="col-xs-12 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-8">Bed No</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="field-19" asp-for="No">
+                                        <span asp-validation-for="No" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-19">Bed Type</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                            <select class="form-control" asp-for="BedTypeId" asp-items="ViewBag.BedTypes" id="field-9">
+                                            <option value="">Please Select Parent Menu</option>
+                                            <span asp-validation-for="BedTypeId" class="text-danger"></span>
+                                            </select>                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-99">Rooms</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                       <select class="form-control" asp-for="RoomId" asp-items="ViewBag.Rooms" id="field-99">
+                                            <option value="">Please Select Room</option>
+                                            <span asp-validation-for="RoomId" class="text-danger"></span>
+                                            </select>                         
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-34">Status</label>
+                                    <select asp-for="Status" asp-items="ViewBag.BedStatus" class="form-control m-bot15" id="field-34">
+                                            <option value="">Please Select Type</option>
+                                    </select>
+                                </div>              
+                                <div class="form-group">
+                                    <label class="form-label" for="field-20">Price</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="number" class="form-control" id="field-20" asp-for="Price" min="0">
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

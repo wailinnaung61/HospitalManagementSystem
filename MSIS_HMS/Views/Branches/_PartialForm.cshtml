@@ -1,0 +1,391 @@
+﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Branch
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/Branches/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="PatientRegFormat" hidden />
+                                <input asp-for="PatientRegNo" hidden />
+                                <input asp-for="VisitNoFormat" hidden />
+                                <input asp-for="VisitNo" hidden />
+
+
+                            }
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="Name">Name</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" asp-for="Name" class="form-control" />
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="Code">Code</label>
+                                        <div class="controls">
+                                            <input type="text" asp-for="Code" class="form-control" />
+                                            <span asp-validation-for="Code" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        <label class="form-label" for="Address">Address</label>
+                                        <div class="controls">
+                                            <textarea asp-for="Address" class="form-control autogrow" cols="5" id="field-6" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 54px;"></textarea>
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="CountryId">Country</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="CountryId" asp-items="ViewBag.Countries" id="CountryId">
+                                                <option value="">Please Select State</option>
+                                            </select>
+                                            <span asp-validation-for="CountryId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="StateId">State</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="StateId" asp-items="ViewBag.States" id="StateId">
+                                                <option value="">Please Select State</option>
+                                            </select>
+                                            <span asp-validation-for="StateId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="CityId">City</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="CityId" asp-items="ViewBag.Cities" id="CityId">
+                                                <option value="">Please Select City</option>
+                                            </select>
+                                            <span asp-validation-for="CityId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="TownshipId">Township</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="TownshipId" asp-items="ViewBag.Townships" id="TownshipId">
+                                                <option value="">Please Select Township</option>
+                                            </select>
+                                            <span asp-validation-for="TownshipId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="field-1">Phone</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Phone" id="field-1">
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="field-1">Email</label>
+                                        <div class="controls">
+                                            <input type="email" class="form-control" asp-for="Email" id="field-1">
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="field-1">Check In</label>
+                                        <div class="controls">
+                                            <input type="time" class="form-control" asp-for="CheckInTime" id="field-1">
+                                            <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="field-1">Check Out</label>
+                                        <div class="controls">
+                                            <input type="time" class="form-control" asp-for="CheckOutTime" id="field-1">
+                                            <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label class="form-label" for="field-1">Clinic Fee</label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="ClinicFee" id="field-1">
+                                            <span asp-validation-for="ClinicFee" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 form-group" style="padding-top: 38px;">
+                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="IsMainBranch">
+                                        <label class="icheck-label form-label" for="square-checkbox-6">Main Branch</label>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        <h2 class="form-title pull-left">Setting</h2>
+                                        <div class="actions panel_actions pull-right">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#pharmacy">Pharmacy Order</a></li>
+                                            <li><a href="#purchase">Purchase Order</a></li>
+                                            <li><a href="#deliver">Deliver Order</a></li>
+                                            <li><a href="#batch">Batch</a></li>
+                                            <li><a href="#patient">Patient Reg</a></li>
+                                            <li><a href="#visit">Visit</a></li>
+                                            <li><a href="#ipd">IPD</a></li>
+                                            <li><a href="#lab">Lab Order</a></li>
+                                            <li><a href="#labResult">Lab Result</a></li>
+                                            <li><a href="#imaging">Imaging</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="pharmacy" class="tab-pane fade in active">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="AutoPaidForOrder">
+                                                        <label class="icheck-label form-label" for="AutoPaidForOrder">Auto Paid</label>
+                                                        <br />
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForOrder">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForOrder">Use Pharmacy Voucher Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForOrder">
+                                                            <span asp-validation-for="VoucherFormatForOrder" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForOrder">
+                                                            <span asp-validation-for="VoucherNoForOrder" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="purchase" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForPurchase">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForPurchase">Use Purchase Voucher Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForPurchase">
+                                                            <span asp-validation-for="VoucherFormatForPurchase" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForPurchase">
+                                                            <span asp-validation-for="VoucherNoForPurchase" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="deliver" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForDeliverOrder">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForDeliverOrder">Use Deliver Order Voucher Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForDeliverOrder">
+                                                            <span asp-validation-for="VoucherFormatForDeliverOrder" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForDeliverOrder">
+                                                            <span asp-validation-for="VoucherNoForDeliverOrder" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="batch" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseBatchNoFormat">
+                                                        <label class="icheck-label form-label" for="UseBatchNoFormat">Use Purchase Voucher Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Batch No. Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="BatchNoFormat">
+                                                            <span asp-validation-for="BatchNoFormat" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="BatchNo">
+                                                            <span asp-validation-for="BatchNo" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="patient" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Patient Region No. Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="PatientRegFormat">
+                                                            <span asp-validation-for="PatientRegFormat" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Patient Region Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="PatientRegNo">
+                                                            <span asp-validation-for="PatientRegNo" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="visit" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Visit No. Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VisitNoFormat">
+                                                            <span asp-validation-for="VisitNoFormat" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Visit Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VisitNo">
+                                                            <span asp-validation-for="VisitNo" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="ipd" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input asp-for="AutoPaidForIPD" value="false" hidden />
+                                                        @*<input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="AutoPaidForIPD">*@
+                                                        <label class="icheck-label form-label" for="AutoPaidForIPD">Auto Paid</label>
+                                                        <br />
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForIPD">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForIPD">Use IPD Record Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForIPD">
+                                                            <span asp-validation-for="VoucherFormatForIPD" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForIPD">
+                                                            <span asp-validation-for="VoucherNoForIPD" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="lab" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="AutoPaidForLab">
+                                                        <label class="icheck-label form-label" for="AutoPaidForLab">Auto Paid</label>
+                                                        <br />
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForLab">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForLab">Use Lab Voucher Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForLab">
+                                                            <span asp-validation-for="VoucherFormatForLab" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Voucher Number</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForLab">
+                                                            <span asp-validation-for="VoucherNoForLab" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="labResult" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForLabResult">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForLabResult">Use Result No. Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Result No Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForLabResult">
+                                                            <span asp-validation-for="VoucherFormatForLabResult" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Result No</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForLabResult">
+                                                            <span asp-validation-for="VoucherNoForLabResult" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="imaging" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-xs-12 form-group">
+                                                        <input tabindex="5" type="checkbox" class="skin-square-grey" asp-for="UseVoucherFormatForImaging">
+                                                        <label class="icheck-label form-label" for="UseVoucherFormatForImaging">Use Result No. Format</label>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Result No Format (Use 0 for Number Placement)</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherFormatForImaging">
+                                                            <span asp-validation-for="VoucherFormatForImaging" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 form-group">
+                                                        <label class="form-label" for="field-1">Result No</label>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="VoucherNoForImaging">
+                                                            <span asp-validation-for="VoucherNoForImaging" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-xs-12  padding-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/branches/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@using MSIS_HMS.Enums
+@using X.PagedList
+@model List<MSIS_HMS.Core.Entities.Menu>
+@{
+    var controller = "Menus";
+    ViewData["Title"] = "All " + controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var MenuName = query["Menuname"];
+    var DisplayName = query["Displayname"];
+    ViewData["Query"] = query;
+    var path = Url.Content("~/");   
+}
+
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Menus</h2>
+                    <div class="actions panel_actions pull-right">
+                        <button data-href="/@controller/create" class="btn btn-click btn-primary gradient-blue">Create</button>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table id="example" class="display table table-hover table-condensed collaptable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Display Name</th>
+                                        <th>Display Name (Myanmar)</th>
+                                        <th>Module</th>
+                                        <th>Menu Order</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model.OrderBy(x => x.MenuOrder))
+                                    {
+                                        <tr data-id="@count" data-parent="">
+                                            <th>@count</th>
+                                            <th><span><img src="@(path+item.Image)" style="width:30px;height:30px;margin-right:8px;"/></span>@item.Name</th>
+                                            <th>@item.DisplayName</th>
+                                            <th>@item.DisplayName_mm</th>
+                                            <th>@item.ModuleName</th>
+                                            <th>@item.MenuOrder</th>
+                                            <th>
+                                                <a asp-controller="Menus" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                <button asp-controller="Menus" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary"
+                                                        onclick="deleteAlert(@item.Id)">
+                                                    Delete
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        foreach (var child in item.ChildMenus.OrderBy(x => x.MenuOrder))
+                                        {
+                                            <tr data-id="" data-parent="@count"> 
+                                                <td></td>
+                                                <td><span><img src="@(path+child.Image)" style="width:30px;height:30px;margin-right:8px;"/></span>@child.Name</td>
+                                                <td>@child.DisplayName</td>
+                                                <td>@child.DisplayName_mm</td>
+                                                <td>@child.ModuleName</td>
+                                                <td>@child.MenuOrder</td>
+                                                <td>
+                                                    <a asp-controller="Menus" asp-action="Edit" asp-route-Id="@child.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                    <button asp-controller="Menus" asp-action="Delete" asp-route-Id="@child.Id" class="btn btn-xs btn-secondary"
+                                                            onclick="DeleteConfirm('/@controller/Delete/',@child.Id)">
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                            if (child.ChildMenus != null)
+                                            {
+                                                foreach (var groupItem in child.ChildMenus.OrderBy(x => x.MenuOrder))
+                                                {
+                                                    <tr style="font-size: small;">
+                                                        <td></td>
+                                                        <td style="padding-left: 30px;"><span><img src="@(path+groupItem.Image)" style="width:30px;height:30px;margin-right:8px;"/></span>@groupItem.Name</td>
+                                                        <td>@groupItem.DisplayName</td>
+                                                        <td>@groupItem.DisplayName_mm</td>
+                                                        <td>@groupItem.ModuleName</td>
+                                                        <td>@groupItem.MenuOrder</td>
+                                                        <td>
+                                                            <a asp-controller="Menus" asp-action="Edit" asp-route-Id="@groupItem.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                            <button asp-controller="Menus" asp-action="Delete" asp-route-Id="@groupItem.Id" class="btn btn-xs btn-secondary"
+                                                                    onclick="DeleteConfirm('/@controller/Delete/',@child.Id)">
+                                                                Delete
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/jquery.aCollapTable.min.js"></script>
+   
+
+    @if (TempData["notice"] != null)
+    {
+        switch ((int)TempData["notice"])
+        {
+            case (int)StatusEnum.NoticeStatus.Success:
+                <script>SaveAlert('center', 'success', 'Menu');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Edit:
+                <script>EditAlert('center', 'success', 'Menu');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Delete:
+                <script>DeleteAlert('center', 'success', 'Menu');</script>
+                 <script src="~/js/image-upload.js"></script>
+                break;
+        }
+
+    }
+}

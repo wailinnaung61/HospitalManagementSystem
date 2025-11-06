@@ -1,0 +1,114 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.Appointment
+
+
+<div class="modal fade" role="dialog" id="appointmentInput" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="appointmentForm" action="/Appointments/@ViewData["Action"]" method="post">
+                @*@if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                    {*@
+                <input asp-for="Id" id="id" hidden />
+                <input asp-for="BranchId" id="branchId" hidden />
+
+                @*}*@
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Appointment</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-6 form-group">
+
+                                <label class="form-label" for="doctorId">Doctor</label>
+                                <span class="desc"></span>
+                                <select class="form-control" asp-for="DoctorId" asp-items="ViewBag.Doctors" id="doctorId" style="width:100%;">
+                                    <option value="0">Please Select Doctor</option>
+                                </select>
+
+                                @*@Html.DropDownListFor(model => model.Doctor, ViewBag.Doctors as SelectList, "---select---", new { @class = "form-control" })*@
+                            </div>
+
+                            <div class="col-md-6 form-group">
+
+                                <label class="form-label" for="patientId">Patient</label>
+                                <span class="desc"></span>
+                                <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients" id="patientId" style="width:100%;">
+                                    <option value="0">Please Select Patient</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+
+                                <label class="form-label" for="appointmentTypeId">AppointmentType</label>
+                                <span class="desc"></span>
+                                <select class="form-control" asp-for="AppointmentTypeId" asp-items="ViewBag.AppointmentTypes" id="appointmentTypeId" style="width:100%;">
+                                    <option value="0">Please Select AppointmentType</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-6 form-group">
+
+                                <label class="form-label" for="Status">Status</label>
+                                <span class="desc"></span>
+                                <select class="form-control" asp-for="Status" asp-items="@Html.GetEnumSelectList<MSIS_HMS.Core.Enums.VisitStatusEnum>()" id="statusId" style="width:100%;">
+                                    <option value="0">Please Select Status</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <table id="example" class="display table table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>                                            
+                                            <th>From</th>
+                                            <th>To</th>                                            
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="AvailableDoctorsTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-label" for="Date">Start Date</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+
+                                    <input type="datetime-local" step="any" id="startDate" class="form-control" asp-for="StartDate" value="@GetCurrentDateTimeString()" onchange="ValidTime()">
+
+                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="form-label" for="Date">End Date</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input type="datetime-local" step="any" id="endDate" class="form-control" asp-for="EndDate" value="@GetCurrentDateTimeString()" onchange="ValidTime()">
+
+                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="form-label">Note</label>
+                                <span class="desc"></span>
+                                <textarea id="note" asp-for="Notes" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary gradient-blue" id="btnSave">Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="onCloseModal();">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

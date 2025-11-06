@@ -1,0 +1,242 @@
+﻿@using MSIS_HMS.Enums;
+@*@model MSIS_HMS.Core.Entities.Location*@
+@{
+    ViewData["Title"] = "Settings";
+    var controller = "Settings";
+}
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Batch Setting</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/@controller/@ViewData["Action"]" method="post">
+                            @*@Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                            }*@
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <input tabindex="5" type="checkbox" id="UsePurchaseVoucherFormat" name="UsePurchaseVoucherFormat" class="skin-square-grey">
+                                        <label class="icheck-label form-label" for="UsePurchaseVoucherFormat">Use Purchase Voucher Format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">Batch No. Format (Use # for Number Placement)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="PurchaseVoucherFormat" value="PV-####">
+                                        @*<span asp-validation-for="PurchaseVoucherFormat" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="Code">Current Batch Number</label>
+                                    <div class="controls">
+                                        <input type="number" name="PurchaseVoucherNumber" class="form-control" />
+                                        @*<span asp-validation-for="Code" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Purchase Setting</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/@controller/@ViewData["Action"]" method="post">
+                            @*@Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                            }*@
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <input tabindex="5" type="checkbox" id="UsePurchaseVoucherFormat" name="UsePurchaseVoucherFormat" class="skin-square-grey">
+                                        <label class="icheck-label form-label" for="UsePurchaseVoucherFormat">Use Purchase Voucher Format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">Voucher Format (Use # for Number Placement)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="PurchaseVoucherFormat" value="PV-####">
+                                        @*<span asp-validation-for="PurchaseVoucherFormat" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="Code">Current Voucher Number</label>
+                                    <div class="controls">
+                                        <input type="number" name="PurchaseVoucherNumber" class="form-control" />
+                                        @*<span asp-validation-for="Code" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Deliver Order Setting</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/@controller/@ViewData["Action"]" method="post">
+                            @*@Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                            }*@
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <input tabindex="5" type="checkbox" id="UseDeliverVoucherFormat" name="UseDeliverVoucherFormat" class="skin-square-grey">
+                                        <label class="icheck-label form-label" for="UseDeliverVoucherFormat">Use Deliver Voucher Format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">Voucher Format (Use # for Number Placement)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="PurchaseVoucherFormat" value="PV-####">
+                                        @*<span asp-validation-for="PurchaseVoucherFormat" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="DeliverVoucherNumber">Current Voucher Number</label>
+                                    <div class="controls">
+                                        <input type="number" name="DeliverVoucherNumber" class="form-control" />
+                                        @*<span asp-validation-for="Code" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Pharmacy Order Setting</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/@controller/@ViewData["Action"]" method="post">
+                            @*@Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                            }*@
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <input tabindex="5" type="checkbox" id="UseOrderVoucherFormat" name="UseOrderVoucherFormat" class="skin-square-grey">
+                                        <label class="icheck-label form-label" for="UseOrderVoucherFormat">Use Purchase Voucher Format</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">Voucher Format (Use # for Number Placement)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" name="PurchaseVoucherFormat" value="PV-####">
+                                        @*<span asp-validation-for="PurchaseVoucherFormat" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="OrderVoucherNumber">Current Voucher Number</label>
+                                    <div class="controls">
+                                        <input type="number" name="OrderVoucherNumber" class="form-control" />
+                                        @*<span asp-validation-for="Code" class="text-danger"></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">&nbsp;</label>
+                                    <div class="controls">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Appointment
+@{
+    ViewData["Title"] = "Create Appointment";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label class="form-label" for="DoctorId">Doctor</label>
+            <span class="desc"></span>
+            <div class="controls">
+                <select class="form-control" asp-items="ViewBag.Doctors" id="doctorCId" onchange="onChangeDoctor()">
+                    @*<option value="">Please Select Doctor</option>*@
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="calendar" style="width:1000px;"></div>
+</div>
+
+<script src="~/plugins/calendar/moment.min.js"></script>
+@*<script src="~/plugins/calendar/jquery-ui.custom.min.js"></script>*@
+
+@*<script src='http://fullcalendar.io/js/fullcalendar-2.4.0/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.4.0/lib/jquery.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.4.0/lib/jquery-ui.custom.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.4.0/fullcalendar.min.js'></script>*@
+<script src="~/js/jquery.min.js"></script>
+<link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+@*<script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>*@
+<script src="~/js/script-custom-calendar.js"></script>
+<partial name="_PartialForm" />
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+             $.ajax({
+                url: `/Doctors/GetAvailableDoctors?DepartmentType=@((int)MSIS_HMS.Core.Enums.DepartmentTypeEnum.OPD)&DepartmentId=${$("#DepartmentId").val()}&SpecialityId=${$("#SpecialityId").val()}`,
+                type: 'get',
+                success: function (res) {
+                    var html = "";
+                    for (var i = 0; i < res.length; i++) {
+                        html += `
+                                <tr>
+                                    <td>${i+1}</td>
+                                    <td>${tConvert(res[i].fromTime)}</td>
+                                    <td>${tConvert(res[i].toTime)}</td>
+                                    <td><button class="btn btn-xs btn-secondary" onclick="onSelectDoctor(${res[i].id})">Select</button></td>
+                                </tr>
+                                `;
+                    }
+                    $("#AvailableDoctorsTableBody").html(html);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

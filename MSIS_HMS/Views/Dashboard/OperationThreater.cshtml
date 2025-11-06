@@ -1,0 +1,187 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "OperationThreater Dashboard";
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DailyIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/daily-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Daily Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.MonthlyIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/monthly-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Monthly Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.OperationToday <small>Operations</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/AdminDashboard/color/operation.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Doctors <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/doctor.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Doctors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Nurses <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/nurse.png" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Nurses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                2 <small>Rooms</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/room.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Operation Room</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.OperationName <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/AdminDashboard/color/operation.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Operation Name</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+    </section>
+</div>
+<div class="clearfix"></div>
+
+<div class="col-lg-8">
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Operation Queue</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Operation Name</th>
+                                    <th>Operation Type</th>
+                                    <th>Patient</th>
+                                    <th>Surgeon</th>   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 1;
+                                }
+                                @foreach (var item in ViewBag.OperationQueue)
+                                {
+                                    <tr>
+                                        <td>@(i).</td>
+                                        <td>@item.OperationTypeName</td>
+                                        <td>@item.Type</td>
+                                        <td>@item.PatientName</td>
+                                        <td>@item.DoctorName</td>
+                                        
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Operation</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="chart-container">
+                        <div class="" style="height:200px" id="browser_type_operation"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,89 @@
+@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.ItemLocation
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/ItemLocations/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Items">Items</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="ItemId" asp-items="ViewBag.Items">
+                                                <option value="">Please Select Item</option>
+                                            </select>
+                                            <span asp-validation-for="ItemId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Batches">Batch</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="BatchId" asp-items="ViewBag.Batches">
+                                                <option value="">Please Select Batch</option>
+                                            </select>
+                                            <span asp-validation-for="BatchId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Warehouses">Warehouse</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="WarehouseId" asp-items="ViewBag.Warehouses">
+                                                <option value="">Please Select Warehouse</option>
+                                            </select>
+                                            <span asp-validation-for="WarehouseId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Locations">Locations</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="LocationId" asp-items="ViewBag.Locations">
+                                                <option value="">Please Select Location</option>
+                                            </select>
+                                            <span asp-validation-for="LocationId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Remark">Remark</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Remark" id="Remark">
+                                            <span asp-validation-for="Remark" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/ItemLocations/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+﻿@using MSIS_HMS.Enums
+@using X.PagedList
+@model IPagedList<MSIS_HMS.Core.Entities.Symptom>
+@{
+    var controller = "symptoms";
+    ViewData["Title"] = "All " + controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var SymptomName = query["SymptomName"];
+    var DoctorId = query["DoctorId"];
+    ViewData["Query"] = query;
+}
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria -multisele ctable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                        <div class="panel-body">
+                            <form method="get" action="/@controller/Index">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="Name">Name</label>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" name="Symptomname" value="@SymptomName" id="Name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <button data-href="/@controller/create" class="btn btn-click btn-primary gradient-blue">Create</button>
+                        <button data-href="/@controller/import" class="btn btn-click btn-primary gradient-blue">Excel Import</button>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <!-- ********************************************** -->
+
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@((((int)ViewBag.Page - 1) * (int)ViewBag.PageSize) + count)</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                <a asp-controller="@controller" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                <button asp-controller="@controller" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary"
+                                                        onclick="DeleteConfirm('/@controller/Delete/',@item.Id)">
+                                                    Delete
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                            <partial name="_Pagination" model="Model" view-data="ViewData" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+
+    @if (TempData["notice"] != null)
+    {
+        switch ((int)TempData["notice"])
+        {
+            case (int)StatusEnum.NoticeStatus.Success:
+                <script>SaveAlert('center','success','Symptom');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Edit:
+                <script>EditAlert('center', 'success','Symptom');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Delete:
+                <script>DeleteAlert('center', 'success','Symptom');</script>
+                break;
+        }
+
+    }
+}

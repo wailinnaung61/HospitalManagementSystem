@@ -1,0 +1,162 @@
+﻿﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Menu
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/Menus/@ViewData["Action"]" method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                            }
+                            <div class="col-md-6 form-group">
+                                <label class="form-label" for="Name">Image</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <input asp-for="Image" hidden />
+                                    <input asp-for="ImageContent" hidden/>
+                                    <input name="ImageFile" id="fileupload" type="file" style="display:none;" />
+                                    <div><img id="dvPreview"/></div>
+                                    <span asp-validation-for="ImageContent" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="Name">Name</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="ParentId">Parent Menu</label>
+                                    <div class="controls">
+                                        <select asp-for="ParentId" asp-items="ViewBag.ParentMenus" class="form-control m-bot15">
+                                            <option value="">Please Select Parent Menu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsGroup" class="skin-square-grey">
+                                    <label class="icheck-label form-label" for="IsGroup">Group Label</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="GroupId">Group Menu</label>
+                                    <div class="controls">
+                                        <select asp-for="GroupId" asp-items="ViewBag.GroupMenus" class="form-control m-bot15">
+                                            <option value="">Please Select Group Menu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Icon">Icon</label>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Icon" class="form-control" />
+                                        <span asp-validation-for="Icon" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="DisplayName">Display Name</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="DisplayName" class="form-control" />
+                                        <span asp-validation-for="DisplayName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="DisplayName_mm">Display Name (Myanmar)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="DisplayName_mm" class="form-control" />
+                                        <span asp-validation-for="DisplayName_mm" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Controller">Controller</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Controller" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Action">Action</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Action" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Params">Params</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" asp-for="Params" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Description">Description</label>
+                                    <div class="controls">
+                                        <textarea asp-for="Description" class="form-control autogrow" cols="5" id="field-6" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 54px;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="ModuleId">Module</label>
+                                    <div class="controls">
+                                        <select asp-for="ModuleId" asp-items="ViewBag.Modules" class="form-control m-bot15">
+                                            <option value="">Please Select Module</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="Params">Menu Order</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="number" asp-for="MenuOrder" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsBranchId" class="skin-square-grey" id="IsBranchId">
+                                    <label class="icheck-label form-label" for="IsBranchId">Require BranchId</label>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsOutletId" class="skin-square-grey" id="IsBranchId">
+                                    <label class="icheck-label form-label" for="IsOuletId">Require Outlet</label>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsDoctorId" class="skin-square-grey" id="IsBranchId">
+                                    <label class="icheck-label form-label" for="IsDoctorId">Require Doctor</label>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsDashboard" class="skin-square-grey">
+                                    <label class="icheck-label form-label" for="IsDashboard">Dashboard</label>
+                                </div>
+                                <div class="form-group">
+                                    <input tabindex="5" type="checkbox" asp-for="IsActive" class="skin-square-grey">
+                                    <label class="icheck-label form-label" for="IsActive">Active</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/Menus/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

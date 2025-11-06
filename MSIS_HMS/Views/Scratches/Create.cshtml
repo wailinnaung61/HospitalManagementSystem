@@ -1,0 +1,25 @@
+﻿@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.Scratch
+@{
+    ViewData["Title"] = "Create Scratch";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+    var _id = '@(Model == null ? 0 : Model.Id)';
+    var _action = '@ViewEnum.Action.Create.ToDescription()';
+    var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+    var _warehouseId = '@(Model == null ? 0 : Model.WarehouseId)';
+    var _scratchItems = JSON.parse('@Json.Serialize(Model == null ? new List<ScratchItem>() : Model.ScratchItems == null ? new List<ScratchItem>() : Model.ScratchItems.ToList())');
+    </script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/scratch.js" type="text/babel"></script>
+}

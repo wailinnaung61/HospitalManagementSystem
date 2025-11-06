@@ -1,0 +1,38 @@
+@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.Item
+@{
+    ViewData["Title"] = "Edit Item";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<link href="~/css/disabled.css" rel="stylesheet" type="text/css" />
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _action = '@ViewEnum.Action.Edit.ToDescription()';
+        var _unitPrice = '@(Model == null ? 0 : Model.UnitPrice)';
+        var _percentageForSale = '@(Model == null ? 0 : Model.PercentageForSale)';
+        var _percentageForDiscount = '@(Model == null ? 0 : Model.PercentageForDiscount)';
+        var _packingUnits = JSON.parse('@Json.Serialize(Model != null && Model.PackingUnits != null ? Model.PackingUnits.ToList() : new List<PackingUnit>())');
+    </script>
+    <script src="~/js/image-upload.js"></script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/packing-unit.js" type="text/babel"></script>
+}

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OTReportForDoctor" targetNamespace="http://tempuri.org/OTReportForDoctor.xsd" xmlns:mstns="http://tempuri.org/OTReportForDoctor.xsd" xmlns="http://tempuri.org/OTReportForDoctor.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OTReportForDoctor" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="OTReportForDoctor" msprop:Generator_UserDSName="OTReportForDoctor">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DoctorName" msprop:Generator_ColumnVarNameInTable="columnDoctorName" msprop:Generator_ColumnPropNameInRow="DoctorName" msprop:Generator_ColumnPropNameInTable="DoctorNameColumn" msprop:Generator_UserColumnName="DoctorName" type="xs:string" minOccurs="0" />
+              <xs:element name="AneasthetistName" msprop:Generator_ColumnVarNameInTable="columnAneasthetistName" msprop:Generator_ColumnPropNameInRow="AneasthetistName" msprop:Generator_ColumnPropNameInTable="AneasthetistNameColumn" msprop:Generator_UserColumnName="AneasthetistName" type="xs:string" minOccurs="0" />
+              <xs:element name="OperationType" msprop:Generator_ColumnVarNameInTable="columnOperationType" msprop:Generator_ColumnPropNameInRow="OperationType" msprop:Generator_ColumnPropNameInTable="OperationTypeColumn" msprop:Generator_UserColumnName="OperationType" type="xs:string" minOccurs="0" />
+              <xs:element name="AneasthetistType" msprop:Generator_ColumnVarNameInTable="columnAneasthetistType" msprop:Generator_ColumnPropNameInRow="AneasthetistType" msprop:Generator_ColumnPropNameInTable="AneasthetistTypeColumn" msprop:Generator_UserColumnName="AneasthetistType" type="xs:string" minOccurs="0" />
+              <xs:element name="PreOPDiagnosis" msprop:Generator_ColumnVarNameInTable="columnPreOPDiagnosis" msprop:Generator_ColumnPropNameInRow="PreOPDiagnosis" msprop:Generator_ColumnPropNameInTable="PreOPDiagnosisColumn" msprop:Generator_UserColumnName="PreOPDiagnosis" type="xs:string" minOccurs="0" />
+              <xs:element name="PostOPDiagnosis" msprop:Generator_ColumnVarNameInTable="columnPostOPDiagnosis" msprop:Generator_ColumnPropNameInRow="PostOPDiagnosis" msprop:Generator_ColumnPropNameInTable="PostOPDiagnosisColumn" msprop:Generator_UserColumnName="PostOPDiagnosis" type="xs:string" minOccurs="0" />
+              <xs:element name="OperationProcedure" msprop:Generator_ColumnVarNameInTable="columnOperationProcedure" msprop:Generator_ColumnPropNameInRow="OperationProcedure" msprop:Generator_ColumnPropNameInTable="OperationProcedureColumn" msprop:Generator_UserColumnName="OperationProcedure" type="xs:string" minOccurs="0" />
+              <xs:element name="OTStartTime" msprop:Generator_ColumnVarNameInTable="columnOTStartTime" msprop:Generator_ColumnPropNameInRow="OTStartTime" msprop:Generator_ColumnPropNameInTable="OTStartTimeColumn" msprop:Generator_UserColumnName="OTStartTime" type="xs:string" minOccurs="0" />
+              <xs:element name="OTEndTime" msprop:Generator_ColumnVarNameInTable="columnOTEndTime" msprop:Generator_ColumnPropNameInRow="OTEndTime" msprop:Generator_ColumnPropNameInTable="OTEndTimeColumn" msprop:Generator_UserColumnName="OTEndTime" type="xs:string" minOccurs="0" />
+              <xs:element name="OperationDate" msprop:Generator_ColumnVarNameInTable="columnOperationDate" msprop:Generator_ColumnPropNameInRow="OperationDate" msprop:Generator_ColumnPropNameInTable="OperationDateColumn" msprop:Generator_UserColumnName="OperationDate" type="xs:string" minOccurs="0" />
+              <xs:element name="SentToPathology" msprop:Generator_ColumnVarNameInTable="columnSentToPathology" msprop:Generator_ColumnPropNameInRow="SentToPathology" msprop:Generator_ColumnPropNameInTable="SentToPathologyColumn" msprop:Generator_UserColumnName="SentToPathology" type="xs:string" minOccurs="0" />
+              <xs:element name="PostOpTreatment" msprop:Generator_ColumnVarNameInTable="columnPostOpTreatment" msprop:Generator_ColumnPropNameInRow="PostOpTreatment" msprop:Generator_ColumnPropNameInTable="PostOpTreatmentColumn" msprop:Generator_UserColumnName="PostOpTreatment" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,229 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.IPDRecord
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/IPDRecords/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription() || ViewData["Action"].ToString() == "IPDRecordDetail")
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="VoucherNo" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            @if ((bool)ViewBag.UseVoucherFormat)
+                            {
+                                <input asp-for="VoucherNo" hidden />
+                            }
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="VoucherNo">Voucher No</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="VoucherNo" disabled="@(ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription() || (bool)ViewBag.UseVoucherFormat)">
+                                            <span asp-validation-for="VoucherNo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Patients">Patients</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients" id="field-90">
+                                                <option value="">Please Select Patient</option>
+                                            </select>
+                                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="DOA">DOA</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                                            {
+                                                <input type="datetime-local" class="form-control" asp-for="DOA">
+                                            }
+                                            else
+                                            {
+                                                <input type="datetime-local" class="form-control" asp-for="DOA" value="@GetCurrentDateTimeString()">
+                                            }
+                                            <span asp-validation-for="DOA" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @* <div class="col-md-6 form-group">
+                <label class="form-label" for="DODC">DODC</label>
+                <span class="desc"></span>
+                <div class="controls">
+                <input type="datetime-local" class="form-control" asp-for="DODC">
+                <span asp-validation-for="DODC" class="text-danger"></span>
+                </div>
+                </div>*@
+                                    @*<div class="col-md-6 form-group">
+                                        <label class="form-label" for="PaidDate">Paid Date</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="date" class="form-control" asp-for="PaidDate">
+                                            <span asp-validation-for="PaidDate" class="text-danger"></span>
+                                        </div>
+                                    </div>*@
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Patients">Payment Type</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PaymentType" asp-items="@Html.GetEnumSelectList<MSIS_HMS.Core.Enums.PaymentTypeEnum>()" id="field-8">
+                                                <option value="">Please Select Payment Type</option>
+                                            </select>
+                                            <span asp-validation-for="PaymentType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @if (Model.IPDStatusEnum== MSIS_HMS.Core.Enums.IPDStatusEnum.Draft || ViewData["Action"].ToString() == "Create")
+                                    {
+                                        <div class="col-md-6 form-group" id="departmentdiv">
+                                            <label class="form-label" for="Departments">Departments</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments" id="departmentId">
+                                                    <option value="">Please Select Department</option>
+                                                </select>
+                                                <span asp-validation-for="DepartmentId" class="text-danger" id="departmentValid"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 form-group" id="roomsandbedsdiv">
+                                            <label class="form-label" for="">&nbsp;</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AvailableRoomsandBeds">
+                                                    Search Available Rooms and Beds
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group" id="roomdiv">
+                                            <label class="form-label" for="Rooms">Rooms</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select class="form-control" asp-for="RoomId" asp-items="ViewBag.Rooms" id="roomId" disabled="disabled">
+                                                    <option value="">Please Select Room</option>
+                                                </select>
+                                                <span asp-validation-for="RoomId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-group" id="bediv">
+                                            <label class="form-label" for="Beds">Beds</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select class="form-control" asp-for="BedId" asp-items="ViewBag.Beds" id="bedId" disabled="disabled">
+                                                    <option value="">Please Select Bed</option>
+                                                </select>
+                                                <span asp-validation-for="BedId" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label" for="CheckInTime">ChekIn Time</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="time" class="form-control" asp-for="CheckInTime" value="@ViewBag.CheckIn" id="CheckInTime">
+                                                <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Status">Status</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Status">
+                                            <span asp-validation-for="Status" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Status">Discount</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" asp-for="Discount" min=0>
+                                            <span asp-validation-for="Discount" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Tax">Tax</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="number" class="form-control" asp-for="Tax" min=0>
+                                            <span asp-validation-for="Tax" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="root"></div>
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label" for="Remark">Remark</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Remark">
+                                            <span asp-validation-for="Remark" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (ViewData["Action"].ToString() != "IPDRecordDetail")
+                            {
+                                <div class="col-xs-12  padding-bottom-30">
+                                    <div class="text-left">
+                                        <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        <button type="button" data-href="/IPDRecords/index" class="btn btn-click">Cancel</button>
+                                    </div>
+                                </div>
+                            }
+                            @if (ViewData["Action"].ToString() == "IPDRecordDetail")
+                            {
+                                <div class="col-xs-12  padding-bottom-30">
+                                    <div class="text-left">
+                                        <button type="button" data-href="/Patients/PatientDetail?patientId=@Model.PatientId" class="btn btn-primary gradient-blue btn-click">Back To List</button>
+                                    </div>
+                                </div>
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade col-xs-12" id="AvailableRoomsandBeds" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65%">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <table id="example" class="display table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Ward</th>
+                            <th>Room</th>
+                            <th>Bed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="AvailableRoomsandBedsTableBody">
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>*@
+        </div>
+    </div>
+</div>

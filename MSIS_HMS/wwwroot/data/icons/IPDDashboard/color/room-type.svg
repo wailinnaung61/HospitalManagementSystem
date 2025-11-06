@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="105.028" height="80" viewBox="0 0 105.028 80">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2a57d7"/>
+      <stop offset="1" stop-color="#00e4d0"/>
+    </linearGradient>
+  </defs>
+  <g id="room-type" transform="translate(-1262.367 -1567.905)">
+    <path id="Subtraction_1" data-name="Subtraction 1" d="M1385.5,1529a6.5,6.5,0,1,1,6.5-6.5A6.508,6.508,0,0,1,1385.5,1529Zm50.134-.077h-23.313a6.66,6.66,0,0,1,0-13.321h23.313v13.32Zm0-33.3h-23.313a6.66,6.66,0,0,1,0-13.321h23.314v13.32ZM1385.5,1495a6.019,6.019,0,1,1,6.5-6A6.272,6.272,0,0,1,1385.5,1495Zm80.1-32.678h-53.284a6.661,6.661,0,0,1,0-13.322H1465.6a6.661,6.661,0,0,1,0,13.322Zm-80.1-.321a6.5,6.5,0,1,1,6.5-6.5A6.508,6.508,0,0,1,1385.5,1462Z" transform="translate(-116.633 118.905)" fill="url(#linear-gradient)"/>
+    <g id="Layer_67" data-name="Layer 67" transform="translate(1311.605 1585.927)">
+      <path id="Path_117" data-name="Path 117" d="M50.7,59.944V4H14.086V59.944H9v2.034H55.79V59.944ZM23.24,38.076A1.526,1.526,0,1,1,24.766,39.6a1.526,1.526,0,0,1-1.526-1.526ZM20.188,10.1V59.944H18.155V8.069H46.637V59.944H44.6V10.1Z" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

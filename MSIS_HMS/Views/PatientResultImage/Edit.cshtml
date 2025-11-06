@@ -1,0 +1,35 @@
+﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.DTOs.PatientImageDTO;
+@{
+    ViewData["Title"] = "Edit Patient Result Image";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<partial name="_PartialForm" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _itemType = 'PatientImageDTO';
+        var _name= JSON.parse('@Json.Serialize(Model == null ? new List<string>() : Model.Name.ToList())');
+        var _AttachmentPath =JSON.parse('@Json.Serialize(Model == null ? new List<string>() : Model.AttachmentPath.ToList())');
+        var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+
+
+    </script>
+
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+
+    @*React Select*@
+    <script src="~/js/react/dist/emotion.umd.min.js"></script>
+    <script src="~/js/react/dist/prop-types.min.js"></script>
+    <script src="~/js/react/dist/react-input-autosize.min.js"></script>
+    <script src="~/js/react/dist/react-select.min.js"></script>
+
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/ResultImagePerPatient.js" type="text/babel"></script>
+
+}

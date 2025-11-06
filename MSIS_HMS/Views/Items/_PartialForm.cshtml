@@ -1,0 +1,175 @@
+@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Item
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/Items/@ViewData["Action"]" id="myForm" method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Name">Image</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input asp-for="Image" hidden />
+                                            <input asp-for="ImageContent" id="ImageContent" hidden />
+                                            <input name="ImageFile" id="fileupload" type="file" style="display:none;" />
+                                            <div><img id="dvPreview"/></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Name">Name</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Code">Code</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Code">
+                                        <span asp-validation-for="Code" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Barcode">Barcode</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Barcode">
+                                        <span asp-validation-for="Barcode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Brand">Brand</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Brand">
+                                        <span asp-validation-for="Brand" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="ItemTypeId">Item Type</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <select class="form-control" asp-for="ItemTypeId" asp-items="ViewBag.ItemTypes">
+                                            <option value="">Please Select Item Type</option>
+                                        </select>
+                                        <span asp-validation-for="ItemTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="ChemicalName">Chemical Name</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="ChemicalName">
+                                        <span asp-validation-for="ChemicalName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Composition">Composition</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Composition">
+                                        <span asp-validation-for="Composition" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Classification">Classification</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Classification">
+                                        <span asp-validation-for="Classification" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Country">Country</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Country">
+                                        <span asp-validation-for="Country" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Manufacturer">Manufacturer</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Manufacturer">
+                                        <span asp-validation-for="Manufacturer" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="Description">Description</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Description">
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="form-label" for="ExpirationRemindDay">Expiration Remind Day(s)</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="number" class="form-control" asp-for="ExpirationRemindDay" min="0" id="ExpirationRemindDay">
+                                        <span asp-validation-for="ExpirationRemindDay" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row" id="root"></div>
+                                <div class="col-md-12 form-group">
+                                    <label class="form-label" for="Remark">Remark</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" asp-for="Remark">
+                                        <span asp-validation-for="Remark" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/items/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,385 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'MSIS_HMS' " />
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="EPPlus" Version="5.8.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.21" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.6.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.15.0" />
+    <PackageReference Include="NLog" Version="4.7.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.6.4" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="NPOI" Version="2.5.6" />
+    <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
+    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.15" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.21">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.21" />
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="X.PagedList" Version="8.1.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.6.0" />
+    <PackageReference Include="ZXing.Net" Version="0.16.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <None Remove="Microsoft.AspNetCore.Identity.UI" />
+    <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Microsoft.IdentityModel.Tokens" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Services\" />
+    <None Remove="Models\ViewModels\" />
+    <None Remove="Views\Branches\" />
+    <None Remove="Interfaces\" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Views\Modules\" />
+    <None Remove="Views\Menus\" />
+    <None Remove="Enums\" />
+    <None Remove="Models\DTOs\" />
+    <None Remove="Views\Users\" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Profiles\" />
+    <None Remove="Components\" />
+    <None Remove="Views\Shared\Components\" />
+    <None Remove="Views\Shared\Components\SidebarMenu\" />
+    <None Remove="Views\ItemTypes %28copy%29\" />
+    <None Remove="Views\Units %28copy%29\" />
+    <None Remove="X.PagedList" />
+    <None Remove="X.PagedList.Mvc.Core" />
+    <None Remove="Views\Items %28copy%29\" />
+    <None Remove="Views\Settings\" />
+    <None Remove="Views\Purchases %28copy%29\" />
+    <None Remove="AspNetCore.Reporting" />
+    <None Remove="System.Drawing.Common" />
+    <None Remove="System.Text.Encoding.CodePages" />
+    <None Remove="Reports\" />
+    <None Remove="Microsoft.ReportingServices.ReportViewerControl.WebForms" />
+    <None Remove="Views\VisitTypes\" />
+    <None Remove="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+    <None Remove="Views\Visits\" />
+    <None Remove="Views\Dashboard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages" />
+    <Folder Include="Models\ViewModels\" />
+    <Folder Include="Views\Branches\" />
+    <Folder Include="Views\Modules\" />
+    <Folder Include="Views\Menus\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Models\DTOs\" />
+    <Folder Include="Views\Users\" />
+    <Folder Include="Profiles\" />
+    <Folder Include="Views\Shared\Components\SidebarMenu\" />
+    <Folder Include="Views\Batches\" />
+    <Folder Include="Views\Purchases\" />
+    <Folder Include="Views\Settings\" />
+    <Folder Include="Views\VisitTypes\" />
+    <Folder Include="Views\AppointmentTypes\" />
+    <Folder Include="wwwroot\images\menuicons" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSIS_HMS.Infrastructure\MSIS_HMS.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\react\" />
+    <Content Remove="wwwroot\Handler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\ReportFiles\PharmacyReceipt.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\Handler.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ReportDatasets\Branch.Designer.cs">
+      <DependentUpon>Branch.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ReportDatasets\CFFeeReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CFFeeReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\Diagnostic.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Diagnostic.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\IPDRecordDetail.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IPDRecordDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\LabOrderDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabOrderDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\LabResultDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabResultDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\LabResultDetail.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabResultDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\MedicalRecord.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MedicalRecord.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OperationDoctorandStaffDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationDoctorandStaffDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OperationThreaterDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationThreaterDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OperationTreater.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationTreater.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OrderDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OTAneasthetist.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTAneasthetist.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OTDoctor.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTDoctor.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OTNurse.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTNurse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OTReportForDoctor.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTReportForDoctor.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\OutletStockDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OutletStockDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\PaymentAmount.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PaymentAmount.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\PharmacyReceipt.Designer.cs">
+      <DependentUpon>PharmacyReceipt.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ReportDatasets\Prescription.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Prescription.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\ReferrerReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ReferrerReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\SaleItemDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SaleItemDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\ServiceDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\ServiceFeesDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceFeesDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\Symptom.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Symptom.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\visit.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>visit.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\VisitDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VisitDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ReportDatasets\WarehouseStockDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WarehouseStockDataset.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\data\icons\money.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\ReportFiles\LabResultDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ReportDatasets\Branch.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Branch.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="ReportDatasets\CFFeeReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CFFeeReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\Diagnostic.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Diagnostic.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\IPDRecordDetail.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IPDRecordDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\LabOrderDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabOrderDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\LabResultDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabResultDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\LabResultDetail.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabResultDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\MedicalRecord.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MedicalRecord.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OperationDoctorandStaffDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationDoctorandStaffDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OperationThreaterDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationThreaterDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OperationTreater.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationTreater.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OrderDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OTAneasthetist.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTAneasthetist.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OTDoctor.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTDoctor.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OTNurse.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTNurse.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OTReportForDoctor.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTReportForDoctor.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\OutletStockDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OutletStockDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\PaymentAmount.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PaymentAmount.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\PharmacyReceipt.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>PharmacyReceipt.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Update="ReportDatasets\Prescription.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Prescription.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\ReferrerReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReferrerReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\SaleItemDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SaleItemDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\ServiceDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServiceDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\ServiceFeesDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServiceFeesDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\Symptom.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Symptom.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\visit.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>visit.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\VisitDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VisitDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="ReportDatasets\WarehouseStockDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>WarehouseStockDataset.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>

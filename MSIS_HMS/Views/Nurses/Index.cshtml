@@ -1,0 +1,144 @@
+@using MSIS_HMS.Enums
+@using X.PagedList
+@model IPagedList<MSIS_HMS.Core.Entities.Nurse>
+@{
+    var controller = "Nurses";
+    ViewData["Title"] = "All "+controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var NurseName = query["Nursename"];
+    var Code = query["Code"];
+    var DepartmentId = query["DepartmentId"];
+    ViewData["Query"] = query;
+    
+}
+    
+<div class="col-xs-12 ">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                            <div class="panel-body">
+                                <form method="get" action="/@controller/Index">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Name">Name</label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="Nursename" value="@NurseName" id="Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="Code">Code</label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="Code" value="@Code" id="Code">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="DepartmentId">Department</label>
+                                                <div class="controls">
+                                                    <select class="form-control" name="DepartmentId" asp-items="ViewBag.Departments" id="DepartmentId">
+                                                        <option value="">Please Select Item</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label">&nbsp;</label>
+                                                <div class="controls">
+                                                    <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                    <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" bg-w">
+                    <div class="col-lg-12">
+                        <section class="box ">
+                            <header class="panel_header">
+                                <h2 class="title pull-left"></h2>
+                                <div class="actions panel_actions pull-right">
+                                    <button data-href="/@controller/create" class="btn btn-click btn-primary gradient-blue">Create</button>
+                                </div>
+                            </header>
+                            <div class="content-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        <table id="example" class="display table table-hover table-condensed">
+                                            <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>NRC</th>
+                                                <th>Phone</th>
+                                                <th>Gender</th>
+                                                <th>Depatment</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@((((int)ViewBag.Page - 1) * (int)ViewBag.PageSize) + count)</td>
+                                                    <td>@item.Name</td>
+                                                    <td>@item.Code</td>
+                                                    <td>@item.NRC</td>
+                                                    <td>@item.Phone</td>
+                                                    <td>@item.Gender</td>
+                                                    <td>@item.Department.Name</td>
+                                                    <td><a asp-controller="@controller" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                        <button asp-controller="@controller" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary"
+                                                                onclick="DeleteConfirm('/@controller/Delete/',@item.Id)">Delete</button></td>
+                                                </tr>
+                                                count++;
+                                            }
+                                            </tbody>
+                                        </table>
+                                        <partial name="_Pagination" model="Model" view-data="ViewData" />
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+@section Scripts
+{
+     
+        
+        @if (TempData["notice"] != null)
+        {
+            switch ((int) TempData["notice"])
+            {
+                case (int)StatusEnum.NoticeStatus.Success :
+                    <script>SaveAlert('center','success','Nurse');</script>
+                break;
+                case (int)StatusEnum.NoticeStatus.Edit :
+                    <script>EditAlert('center','success','Nurse');</script>
+                break;
+                case (int)StatusEnum.NoticeStatus.Delete :
+                    <script>DeleteAlert('center','success','Nurse');</script>
+                break;
+            }
+            
+        }
+}

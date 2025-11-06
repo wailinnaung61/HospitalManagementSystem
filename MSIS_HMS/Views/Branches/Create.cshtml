@@ -1,0 +1,86 @@
+﻿@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "Create Branch";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<partial name="_PartialForm.cshtml" />
+@section Scripts
+{    
+    <script>
+        function getState(countryId) {
+            $.ajax({
+
+                url: `/branches/GetState?countryId=${countryId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select State</option>`;
+                        for (var i = 0; i < res.length; i++) {
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#StateId').html(html);
+                    }
+
+                }
+
+            });
+        }
+        function getCity(stateId) {
+            $.ajax({
+
+                url: `/branches/GetCity?stateId=${stateId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select City</option>`;
+                        for (var i = 0; i < res.length; i++) {
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#CityId').html(html);
+                    }
+
+                }
+
+            });
+        }
+        function getTownship( cityId) {
+            $.ajax({
+
+                url: `/branches/GetTownship?cityId=${cityId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select Township</option>`;
+                        for (var i = 0; i < res.length; i++) {
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#TownshipId').html(html);
+                    }
+
+                }
+
+            });
+        }
+
+        $(document).ready(function () {
+            $(".nav-tabs a").click(function () {
+                $(this).tab('show');
+            });
+            $('#StateId').change(function (e) {
+                getCity($('#StateId').val());
+
+            });
+            $('#CityId').change(function (e) {
+                getTownship($('#CityId').val());
+
+            });
+             $('#CountryId').change(function (e) {
+                getState($('#CountryId').val());
+              });
+        });
+
+
+    </script>
+
+}

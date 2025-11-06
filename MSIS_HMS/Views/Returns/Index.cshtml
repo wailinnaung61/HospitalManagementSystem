@@ -1,0 +1,161 @@
+﻿@using MSIS_HMS.Enums
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+
+@using static MSIS_HMS.Helpers.FormatHelper
+@model IPagedList<MSIS_HMS.Core.Entities.Return>
+@{
+    var controller = "Returns";
+    ViewData["Title"] = "All " + controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var WarehouseId = query["WarehouseId"];
+    var OutletId = query["OutletId"];
+    var FromDate = query["FromDate"];
+    var ToDate = query["ToDate"];
+    ViewData["Query"] = query;
+
+}
+
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                        <div class="panel-body">
+                            <form method="get" action="/@controller/Index">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-2">Warehouses</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select name="WarehouseId" asp-items="ViewBag.Warehouses" class="form-control">
+                                                    <option value="">Please Select Parent Menu</option>
+                                                </select>
+                                                @* <span asp-validation-for="BranchId" class="text-danger"></span> *@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="OutletName">Outlets</label>
+                                            <div class="controls">
+                                                <select name="OutletId" asp-items="ViewBag.Outlets" class="form-control">
+                                                    <option value="">Please Select Parent Menu</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="FromDate">From Date</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="FromDate" value="@FromDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="ToDate">To Date</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="ToDate" value="@ToDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <button data-href="/@controller/create" class="btn btn-click btn-primary gradient-blue">Create</button>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Remark</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Date.ToString("dd-MM-yyyy")</td>
+                                            <td>@item.WarehouseName</td>
+                                            <td>@item.OutletName</td>
+                                            <td>@item.Remark</td>
+                                            <td>
+                                                <a asp-controller="@controller" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Edit</a>
+                                                <button asp-controller="@controller" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary"
+                                                        onclick="DeleteConfirm('/@controller/Delete/',@item.Id)">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+
+    @if (TempData["notice"] != null)
+    {
+        switch ((int)TempData["notice"])
+        {
+            case (int)StatusEnum.NoticeStatus.Success:
+                <script>SaveAlert('center', 'success', 'Return');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Edit:
+                <script>EditAlert('center', 'success', 'Return');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Delete:
+                <script>DeleteAlert('center', 'success', 'Return');</script>
+                break;
+        }
+
+    }
+}

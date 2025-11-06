@@ -1,0 +1,71 @@
+﻿@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "Edit In Patient Department Record";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+<partial name="_PartialForm" />
+
+@section Scripts
+{
+<script>
+$("form").submit(function () {
+            $("select").removeAttr("disabled");                        
+        });
+    function onSelectRoomandBed(roomid,bedid = '') {
+        $('#AvailableRoomsandBeds').modal('hide');
+        $("#roomId").val(roomid).trigger('change');
+        $("#bedId").val(bedid).trigger('change');
+    }
+
+    $('#AvailableRoomsandBeds').on('show.bs.modal', function (e) {
+        var count=1;
+        debugger;
+        var departmentId=$('#departmentId').val();
+        if(departmentId == "")
+        {
+            $('#departmentValid').html("The value '' is invalid.");
+            return false;
+        }
+        $('#departmentValid').html('');
+        $.ajax({
+            url: `/IPDRecords/GetAvailableRoomsandBeds?departmentId=`+departmentId,
+            type: 'get',
+            success: function (res) {
+                var html = "";
+                for (var i = 0; i < res.length; i++) {
+                    html += ` <tr>
+                                <td>${count}</td>
+                                <td>${res[i].wardName}</td>                           
+                                <td>${res[i].roomNo}</td>
+                                <td></td>`;                                
+                                 html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id})">Select</button></td></tr>`;                                                                                   
+                    if(res[i].beds!=null)
+                    {
+                          for(var j=0;j < res[i].beds.length; j++)
+                          {    
+                               count++;
+                               html += ` <tr>
+                                <td>${count}</td>
+                                <td>${res[i].wardName}</td>
+                                <td>${res[i].roomNo}</td>`;                                                        
+                               html+=`<td>${res[i].beds[j].no}</td>`;    
+                               html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id},${res[i].beds[j].id})">Select</button></td></tr>`;                                                               
+                          }
+                          
+                    }
+                              
+                    count++;
+                }
+                $("#AvailableRoomsandBedsTableBody").html(html);
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+
+            }
+        });
+        })
+   
+        $('#AvailableRoomsandBeds').on('hidden.bs.modal', function (e) {
+                $("#AvailableRoomsandBedsTableBody").html("");
+        });
+</script>
+}

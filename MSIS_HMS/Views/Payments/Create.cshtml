@@ -1,0 +1,301 @@
+﻿@using MSIS_HMS.Enums;
+@{
+    ViewData["Title"] = "Create Payment";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+<partial name="_PartialForm" />
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var ipdRecordId = document.getElementById("ipdRecordId").value;
+            getRecordData(ipdRecordId);
+
+            $('#paymentTypeId').select2({
+                dropdownParent: $('#paymentInput')
+            });
+        });
+
+        function ShowModal() {
+
+            document.getElementById("paidBy").value = "";
+            $("#paymentTypeId").select2("val", "0");
+            //document.getElementById("paymentTypeId").selectedIndex = "";
+            document.getElementById("amount").value = "";
+            document.getElementById("Date").value = "";
+            $("#paymentInput").modal("show");
+        }
+
+        function ShowModalForEdit(id) {
+            $.ajax({
+
+                url: `/Payments/GetPaymentById?Id=${id}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        document.getElementById("id").value = res.id;
+                        document.getElementById("paidBy").value = res.paidBy;
+                        //document.getElementById("paymentTypeId").selectedIndex = res.paymentType;
+                        $("#paymentTypeId").select2("val", String(res.paymentType));
+                        document.getElementById("amount").value = res.amount;
+                        document.getElementById("Date").value = res.date;
+
+                    }
+
+                }
+
+            });
+            $("#paymentInput").modal("show");
+
+        }
+        function CloseModal() {
+            $("#paymentInput").modal("hide");
+        }
+
+        function getRecordData(recordId) {
+            $.ajax({
+
+                url: `/Payments/GetRecordByRecordId?RecordId=${recordId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        $("#lblVoucherNo").html(res.voucherNo);
+                        $("#lblDOA").html(res.doa.toString().split("T")[0]);
+                        $("#lblPatient").html(res.patientName);
+                        $("#lblDODC").html(res.dodc.toString().split("T")[0]);
+                        $("#lblGuardian").html(res.guardian);
+                        $("#lblPaymentType").html(res.paymentTypeName);
+                        $("#lblAge").html(res.age);
+                        $("#lblStatus").html(res.status);
+                        var img = document.createElement("img");
+
+                        var div = document.getElementById('patientImg');
+                        if (res.image == "") {
+                            img.src = "/images/add-image.png";
+                        }
+                        else {
+                            img.src = res.image;
+                        }
+
+                        img.style.width = "150px";
+                        img.style.height = "125px";
+                        /*img.style.borderRadius = "50%";*/
+                        img.className = "thumbnail";
+                        div.appendChild(img);
+
+
+                    }
+
+                }
+
+            });
+        }
+
+        function getPaymentData() {
+            $.ajax({
+
+                url: `/Payments/GetPayments`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+
+                    }
+
+                }
+
+            });
+        }
+
+        function GetDetail(ipdRecordDate) {
+            //document.getElementById("btnPrint").style.display = "block";
+            //document.getElementById("recordDetail").style.visibility = "visible";
+
+            var RecordId = document.getElementById("ipdRecordId").value;
+
+            $.ajax({
+
+                url: `/Payments/GetIPDRecordDetailByRecordId?ipdRecordId=${RecordId}` + `&date=${ipdRecordDate}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = "";
+                        var subTotal = 0;
+                        if (res.roomChargesDTOs.length > 0) {
+                            html += `<tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Room Charges</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>`
+                            for (var i = 0; i < res.roomChargesDTOs.length; i++) {
+
+                                html += ` <tr>
+                                    <td>${i}</td>
+                                    <td>${res.roomChargesDTOs[i].roomName}/${res.roomChargesDTOs[i].bedName}</td>
+                                    <td>${res.roomChargesDTOs[i].unitPrice} MMK</td>
+                                    <td>${res.roomChargesDTOs[i].qty}</td>
+                                    <td>${res.roomChargesDTOs[i].amount} MMK</td>
+                                    </tr>`;
+                                subTotal += res.roomChargesDTOs[i].amount;
+                            }
+                            html += `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:bold">SubTotal</td>
+                                    <td style="font-weight:bold">${subTotal} MMK</td>
+                                    </tr>`
+                        }
+                        if (res.medicationsDTOs.length > 0) {
+                            subTotal = 0;
+                            html += `<tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Medication</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>`
+                            for (var i = 0; i < res.medicationsDTOs.length; i++) {
+
+                                html += ` <tr>
+                                    <td>${i + 1}</td>
+                                    <td>${res.medicationsDTOs[i].name}</td>
+                                    <td>${res.medicationsDTOs[i].unitPrice} MMK</td>
+                                    <td>${res.medicationsDTOs[i].qty} ${res.medicationsDTOs[i].unitName}</td>
+                                    <td>${res.medicationsDTOs[i].amount} MMK</td>
+                                    </tr>`;
+                                subTotal += res.medicationsDTOs[i].amount;
+                            }
+                            html += `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:bold">SubTotal</td>
+                                    <td style="font-weight:bold">${subTotal} MMK</td>
+                                    </tr>`
+                        }
+                        if (res.iPDOrderServiceDTOs.length > 0) {
+                            subTotal = 0;
+                            html += `<tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Service</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>`
+                            for (var i = 0; i < res.iPDOrderServiceDTOs.length; i++) {
+
+                                html += ` <tr>
+                                    <td>${i + 1}</td>
+                                    <td>${res.iPDOrderServiceDTOs[i].name}</td>
+                                    <td>${res.iPDOrderServiceDTOs[i].unitPrice} MMK</td>
+                                    <td>${res.iPDOrderServiceDTOs[i].qty}</td>
+                                    <td>${res.iPDOrderServiceDTOs[i].amount} MMK</td>
+                                    </tr>`;
+                                subTotal += res.iPDOrderServiceDTOs[i].amount;
+                            }
+                            html += `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:bold">SubTotal</td>
+                                    <td style="font-weight:bold">${subTotal} MMK</td>
+                                    </tr>`
+                        }
+                        if (res.feesDTOs.length > 0) {
+                            subTotal = 0;
+                            html += `<tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Round & Other Fees</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>`
+                            for (var i = 0; i < res.feesDTOs.length; i++) {
+
+                                html += ` <tr>
+                                    <td>${i + 1}</td>
+                                    <td>${res.feesDTOs[i].feesName}</td>
+                                    <td>${res.feesDTOs[i].unitPrice} MMK</td>
+                                    <td>${res.feesDTOs[i].qty}</td>
+                                    <td>${res.feesDTOs[i].amount} MMK</td>
+                                    </tr>`;
+                                subTotal += res.feesDTOs[i].amount;
+                            }
+                            html += `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:bold">SubTotal</td>
+                                    <td style="font-weight:bold">${subTotal} MMK</td>
+                                    </tr>`
+                        }
+                        if (res.foodDTOs.length > 0) {
+                            subTotal = 0;
+                            html += `<tr>
+                                    <td></td>
+                                    <td style="font-weight:bold">Food</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>`
+                            for (var i = 0; i < res.foodDTOs.length; i++) {
+
+                                html += ` <tr>
+                                    <td>${i + 1}</td>
+                                    <td>${res.foodDTOs[i].name}</td>
+                                    <td>${res.foodDTOs[i].unitPrice} MMK</td>
+                                    <td>${res.foodDTOs[i].qty}</td>
+                                    <td>${res.foodDTOs[i].amount} MMK</td>
+                                    </tr>`;
+                                subTotal += res.foodDTOs[i].amount;
+                            }
+                            html += `<tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="font-weight:bold">SubTotal</td>
+                                    <td style="font-weight:bold">${subTotal} MMK</td>
+                                    </tr>`
+                        }
+                        $("#recordDetailBody").html(html);
+
+                    }
+
+                }
+
+            });
+        }
+
+        function SaveDiscountAndTax() {
+            var ipdRecordId = document.getElementById("ipdRecordId").value;
+            var discount = document.getElementById("discount").value;
+            var tax = document.getElementById("tax").value;
+            $.ajax({
+                url: `/Payments/DiscountAndTax`,
+                type: 'get',
+                dataType: 'JSON',
+                data:{discount:discount,ipdRecordId:ipdRecordId,tax:tax},
+                success: function (res) {
+                    console.log("SaveDiscountandTax");
+                    //alert("successful");
+
+                }
+
+            });
+            //window.location.reload;
+        }
+
+        function PaidConfirm(url, id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, this Ipdrecord is paid.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url + id;
+                }
+            })
+        }          
+    </script>
+
+}

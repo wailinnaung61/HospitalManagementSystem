@@ -1,0 +1,209 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "Laboratory Dashboard";
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DailyIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/daily-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Daily Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.MonthlyIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/monthly-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Monthly Income</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.CompleteLab <small>Results</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/result.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TotalTechnician  <small>Technicians</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/technician.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Performing Lab Tests</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TotalConsultant <small>Consultants</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/consultant.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Consulting Lab Results</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TotalTest <small>Tests</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/lab.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Configured/Set up</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.ServiceFee <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/service-fee.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Service Fee Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TodayLabOrder  <small>Orders</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/LabDashboard/color/order.svg" class="ico-icon-o" alt="" style="margin-top:-11px;">
+                                </i>
+                            </h3>
+                            <span>Today</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- End .row -->
+    </div>
+</section>
+</div>
+
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-lg-8">
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Lab Test Queue</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Result No</th>
+                                    <th>Patient</th>
+                                    <th>Test</th>
+                                    <th>Technician</th>
+                                    <th>Consultant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 1;
+                                }
+                                @foreach (var item in (List<LabResult>)ViewBag.LabResults)
+                                {
+                                    <tr>
+                                        <td>@(i).</td>
+                                        <td>@item.ResultNo</td>
+                                        <td>@item.Patient.Name</td>
+                                        <td>@item.LabTest.Name</td>
+                                        <td>@item.Technician.Name</td>
+                                        <td>@item.Consultant.Name</td>
+                                    </tr>
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Lab Orders</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="chart-container">
+                        <div class="" style="height:200px" id="browser_type_lab"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- MAIN CONTENT AREA ENDS -->

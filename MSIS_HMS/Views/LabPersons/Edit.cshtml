@@ -1,0 +1,31 @@
+@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.LabPerson
+@{
+    ViewData["Title"] = "Edit Technician/Consultant";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+        var _labPerson_LabTests = JSON.parse('@Json.Serialize(Model == null ? new List<LabPerson_LabTest>() : Model.LabPerson_LabTests == null ? new List<LabPerson_LabTest>() : Model.LabPerson_LabTests.ToList())');
+        var _feeTypes = JSON.parse('@Json.Serialize(Html.GetEnumSelectList<MSIS_HMS.Core.Enums.FeeTypeEnum>())');
+    </script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+
+    @*React Select*@
+    <script src="~/js/react/dist/emotion.umd.min.js"></script>
+    <script src="~/js/react/dist/prop-types.min.js"></script>
+    <script src="~/js/react/dist/react-input-autosize.min.js"></script>
+    <script src="~/js/react/dist/react-select.min.js"></script>
+
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/lab-person-test.js" type="text/babel"></script>
+}

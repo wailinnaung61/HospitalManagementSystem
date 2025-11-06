@@ -1,0 +1,117 @@
+@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.Nurse
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/Nurses/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            <div class="col-xs-12 ">
+                                <div class="form-group">
+                                    <label class="form-label" for="field-1">Name</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="field-1" asp-for="Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-7">Code</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="field-7" asp-for="Code">
+                                        <span asp-validation-for="Code" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-2">NRC</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="field-2" asp-for="NRC">
+                                        <span asp-validation-for="NRC" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-9">Date of Birth</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        @Html.EditorFor(m => m.DOB,new {htmlAttributes = new {@class="form-control",@id="field-9"}})
+                                        <span asp-validation-for="DOB" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-4">Phone</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" id="field-4" asp-for="Phone">
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-5">Age</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <input type="number" class="form-control" id="field-5" asp-for="Age" min="0">
+                                        <span asp-validation-for="Age" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-6">Gender</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <select class="form-control" asp-for="Gender" id="field-6">
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-8">Department</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments"  id="field-8">
+                                            <option value="">Please Select Parent Menu</option>
+                                        </select>
+                                        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="field-10">Brief</label>
+                                    <span class="desc"></span>
+                                    <div class="controls">
+                                        <textarea asp-for="Brief" class="form-control autogrow" cols="5" id="field-10" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 54px;"></textarea>
+                                        <span asp-validation-for="Brief" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/nurses/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+}

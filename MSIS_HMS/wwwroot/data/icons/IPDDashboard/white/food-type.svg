@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100.553" height="80" viewBox="0 0 100.553 80">
+  <g id="food-type" transform="translate(-1586.123 -1567.822)">
+    <path id="Subtraction_2" data-name="Subtraction 2" d="M1385.5,1529a6.5,6.5,0,1,1,6.5-6.5A6.508,6.508,0,0,1,1385.5,1529Zm47.133-.077h-20.312a6.66,6.66,0,0,1,0-13.321h20.312v13.32Zm0-33.3h-20.312a6.66,6.66,0,0,1,0-13.321h20.314v13.32ZM1385.5,1495a6.019,6.019,0,1,1,6.5-6A6.272,6.272,0,0,1,1385.5,1495Zm80.1-32.678h-53.284a6.661,6.661,0,0,1,0-13.322H1465.6a6.661,6.661,0,0,1,0,13.322Zm-80.1-.321a6.5,6.5,0,1,1,6.5-6.5A6.508,6.508,0,0,1,1385.5,1462Z" transform="translate(207.124 118.822)" fill="#fff"/>
+    <g id="_005-cutlery" data-name="005-cutlery" transform="translate(1594.905 1593.727)">
+      <g id="Group_17" data-name="Group 17" transform="translate(51.2)">
+        <g id="Group_16" data-name="Group 16" transform="translate(0)">
+          <path id="Path_123" data-name="Path 123" d="M71.486,18.032C71.486,8.074,66.94,0,61.343,0S51.2,8.074,51.2,18.032a10.119,10.119,0,0,0,6.555,9.456l-.92,22.1a4.508,4.508,0,0,0,9.016,0l-.92-22.1a10.119,10.119,0,0,0,6.555-9.458Z" transform="translate(-51.2)" fill="#fff"/>
+        </g>
+      </g>
+      <g id="Group_19" data-name="Group 19" transform="translate(74.867)">
+        <g id="Group_18" data-name="Group 18">
+          <path id="Path_124" data-name="Path 124" d="M247.3,16.342,246.742,0h-2.818l-.563,16.342h-2.254L240.543,0h-3.381L236.6,16.342h-2.254L233.781,0h-2.818L230.4,16.342a8.441,8.441,0,0,0,5.01,7.7l-1.066,25.542a4.508,4.508,0,1,0,9.016,0l-1.066-25.542a8.441,8.441,0,0,0,5.01-7.7Z" transform="translate(-230.4)" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

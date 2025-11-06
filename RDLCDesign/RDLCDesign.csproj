@@ -1,0 +1,308 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="20.1.3" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Datasets\Branch.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Branch.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\CFFeeReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CFFeeReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Diagnostic.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Diagnostic.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Fees.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Fees.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Food.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Food.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\IPDRecordDetail.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IPDRecordDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\LabOrderDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabOrderDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\LabResultDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabResultDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\LabResultDetail.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LabResultDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\MedicalRecord.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MedicalRecord.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Medication.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Medication.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OperationDoctorandStaffDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationDoctorandStaffDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OperationThreaterDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationThreaterDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OperationTreater.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OperationTreater.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OrderDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OTAneasthetist.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTAneasthetist.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OTDoctor.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTDoctor.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OTNurse.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTNurse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OTReportForDoctor.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OTReportForDoctor.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\OutletStockDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OutletStockDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\PaymentAmount.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PaymentAmount.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Prescription.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Prescription.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\ReferrerReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ReferrerReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\RoomCharges.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RoomCharges.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\SaleItemDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SaleItemDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Service.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Service.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\ServiceDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\ServiceFeesDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceFeesDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\Symptom.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Symptom.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\visit.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>visit.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\VisitDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VisitDataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Datasets\WarehouseStockDataset.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WarehouseStockDataset.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Datasets\Branch.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Branch.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\CFFeeReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CFFeeReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Diagnostic.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Diagnostic.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Fees.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Fees.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Food.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Food.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\IPDRecordDetail.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>IPDRecordDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\LabOrderDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabOrderDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\LabResultDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabResultDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\LabResultDetail.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LabResultDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\MedicalRecord.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MedicalRecord.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Medication.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Medication.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OperationDoctorandStaffDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationDoctorandStaffDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OperationThreaterDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationThreaterDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OperationTreater.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OperationTreater.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OrderDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OTAneasthetist.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTAneasthetist.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OTDoctor.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTDoctor.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OTNurse.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTNurse.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OTReportForDoctor.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OTReportForDoctor.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\OutletStockDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OutletStockDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\PaymentAmount.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PaymentAmount.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Prescription.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Prescription.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\ReferrerReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ReferrerReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\RoomCharges.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RoomCharges.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\SaleItemDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SaleItemDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Service.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Service.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\ServiceDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServiceDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\ServiceFeesDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ServiceFeesDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\Symptom.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Symptom.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\visit.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>visit.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\VisitDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VisitDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Datasets\WarehouseStockDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>WarehouseStockDataset.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

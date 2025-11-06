@@ -1,0 +1,55 @@
+@using MSIS_HMS.Enums;
+@{
+    ViewData["Title"] = "Edit ItemLocations";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<partial name="_PartialForm.cshtml" />
+@section Scripts{
+
+    <script>
+
+        function getBatch(itemId) {
+            $.ajax({
+                url: `/ItemLocations/GetBatch?ItemId=${itemId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select Batch</option>`;
+                        for (var i = 0; i < res.length; i++) {
+
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#BatchId').html(html);
+                    }
+                }
+            });
+        }
+
+        function getLocation(warehouseId) {
+            $.ajax({
+                url: `/ItemLocations/GetLocation?warehouseId=${warehouseId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select Location</option>`;
+                        for (var i = 0; i < res.length; i++) {
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#LocationId').html(html);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#ItemId').change(function (e) {
+                getBatch($('#ItemId').val());
+            });
+            $('#WarehouseId').change(function (e) {
+                getLocation($('#WarehouseId').val());
+            });
+        });
+    </script>
+
+}

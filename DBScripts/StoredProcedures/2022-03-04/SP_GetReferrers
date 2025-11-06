@@ -1,0 +1,20 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Zun Pwint Phyu
+-- Create date: 08_Feb_2022
+-- Description:	Get Referrers
+-- =============================================
+ALTER PROCEDURE [dbo].[SP_GetReferrers]
+@BranchId INT = NULL,
+@ReferrerId int=null	
+AS
+BEGIN
+	SET NOCOUNT ON;
+	Select * from Referrer where IsDelete=0 and 
+    (@BranchId is null or BranchId=@BranchId) and
+    (@ReferrerId is null or Id=@ReferrerId)
+END
+GO

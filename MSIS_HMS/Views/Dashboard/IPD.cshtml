@@ -1,0 +1,302 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "In Patient Dashboard";
+    var i = 0;
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.NewPatient <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/new-patient.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>New Patients</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Admitted <small>Patients</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/admit-patient.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Admitted Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Discharged <small>Patients</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/discharge-patient.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Discharged Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Doctors  <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/doctor.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Doctors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DailyIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/daily-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Daily Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.MonthlyIncome  <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/monthly-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Monthly Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Floors<small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/floor.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Floors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Wards <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/ward.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Wards</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Rooms <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/ward.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Rooms</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.RoomTypes <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/room-type.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Room Types</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Beds <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/bed.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Beds</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.BedTypes <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/bed-type.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Bed Types</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Foods <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/food.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Foods</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.FoodCategory <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/IPDDashboard/color/food-type.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Food Categories</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.RoundFee <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/OPDDashboard/color/cffee.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Round Fee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-lg-8">
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Admitted Patients</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Patient</th>
+                                    <th>Ward</th>
+                                    <th>Room/Bed</th>
+                                    <th>Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.AdmittedPatient)
+                                {
+                                    i += 1;
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.PatientName</td>
+                                        <td>@item.WardName</td>
+                                        <td>@item.RoomNo / @item.BedNo</td>
+                                        <td>@item.Days</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Admissions</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="chart-container">
+                        <div class="" style="height:200px" id="browser_type_ipd"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- MAIN CONTENT AREA ENDS -->

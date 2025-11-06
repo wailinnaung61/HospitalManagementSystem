@@ -1,0 +1,193 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "Pharmacy Dashboard";
+    int i = 0;
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DailyOrderIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/daily-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Daily Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.MonthlyOrderIncome <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/monthly-income.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Monthly Income</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TodayOrder  <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/order.svg" class="ico-icon-o" alt="" style="margin-top:-11px;">
+                                </i>
+                            </h3>
+                            <span>Today Orders</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.TotalOutlet <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/outlet.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Outlets</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-lg-8">
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Outlet Wise</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Outlet</th>
+                                    <th class="text-center">Today's Orders</th>
+                                    <th class="money">Daily Income</th>
+                                    <th class="money">Monthly Income</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var amt in ViewBag.OutletIncome)
+                                {
+                                    <tr>
+                                        <td>@amt.No</td>
+                                        <td>@amt.OutletName</td>
+                                        <td class="text-center">@amt.DailyOrder</td>
+                                        <td class="money">@amt.DailyIncome MMK</td>
+                                        <td class="money">@amt.MonthlyIncome MMK</td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Best Selling Items <small>(This Month)</small></h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th class="money">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var amt in ViewBag.OutletItemFormonth)
+                                {
+                                    <tr>
+                                        <td>@amt.No</td>
+                                        <td>@amt.ItemName</td>
+                                        <td>@amt.QtyString</td>
+                                        <td class="money">@amt.Amount MMK</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Pharmacy Orders</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="chart-container">
+                        <div class="" style="height:200px" id="browser_type"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- MAIN CONTENT AREA ENDS -->

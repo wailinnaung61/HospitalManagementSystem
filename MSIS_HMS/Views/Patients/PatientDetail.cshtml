@@ -1,0 +1,419 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Core.Enums.GenderEnum;
+@model MSIS_HMS.Core.Entities.DTOs.PatientDetailDTO;
+<div class="col-xs-12">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+
+                <div class="row">
+                    <form enctype="multipart/form-data">
+                        <div class="content-body">
+                            <input asp-for="Id" id="patientId" hidden />
+
+                            <div class="row border-box" style="padding-top: 20px;">
+                                <div class="col-md-2 form-group" id="patientImg">
+                                    @*<input type="image" src="~/images/add-image.png" />*@
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="col-md-6 form-group">
+                                        <span><label id="lblName" asp-for="Name" class="form-label" style="font-weight:bold"></label></span>,
+                                        <span><label id="lblGender" asp-for="Gender" class="form-label" style="font-weight:bold"></label></span><br />
+                                        <span><label id="lblAddress" asp-for="Address" class="form-label" style="font-weight:bold"></label></span>,
+                                        <span>
+                                            <label class="form-label" style="font-weight: bold;">Phone</label>
+                                        </span>:
+                                        <span><label id="lblPhone" class="form-label"></label></span>
+
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <span> <label class="form-label" style="font-weight: bold;">NRC</label></span>:
+                                        <span><label id="lblNrc" asp-for="Nrc" class="form-label"></label></span><br />
+                                        <span> <label class="form-label" style="font-weight: bold;">Date Of Birth</label></span>:
+                                        <span> <label id="lblDob" asp-for="DateOfBirth" class="form-label"></label></span>,
+                                        <span>
+                                            <label class="form-label" style="font-weight: bold;">Religion</label>
+                                        </span>
+                                        <span><label id="lblReligion" asp-for="Religion" class="form-label"></label></span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div>
+                                @*class="col-xs-12"*@
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#visit" data-toggle="tab">Visit</a></li>
+                                    <li><a href="#medicalRecord" data-toggle="tab">Medical Record</a></li>
+                                    <li><a href="#ipdRecord" data-toggle="tab">IPD</a></li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="visit" class="tab-pane fade in active">
+                                        @*<div class="row">*@
+                                        <table id="exampleVisit" class="table vm table-small-font no-mb table-bordered table-striped" style="cursor:pointer;">
+                                            <thead>
+                                                <tr>
+                                                    @*<th>No</th>*@
+
+                                                    <th>Date</th>
+                                                    <th>Visit/OPD No</th>
+                                                    @*<th>Patient</th>*@
+                                                    <th>Doctor</th>
+                                                    <th>Type</th>
+                                                    <th>Status</th>
+                                                    <th>Completed</th>
+                                                    @*<th></th>*@
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.visits != null)
+                                                {
+                                                    @foreach (var item in Model.visits)
+                                                    {
+                                                <tr onclick="gotoVisitDetail(@item.Id)">
+
+
+                                                    <td>@item.Date</td>
+                                                    <td>@item.VisitNo</td>
+                                                    @*<td>@item.PatientName</td>*@
+                                                    <td>@item.DoctorName</td>
+                                                    <td>@item.VisitTypeDesc</td>
+                                                    <td>@item.Status.ToDescription()</td>
+                                                    <td align="center"><input tabindex="5" type="checkbox" class="icheck-minimal-red completed" @(Convert.ToBoolean(@item.Completed) == true ? "checked='checked'" : string.Empty) id=@item.Id></td>
+                                                    <!--<td>
+    <a asp-controller="Visits" asp-action="VisitDetail" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Detail</a>-->
+                                                    @*<button type="button" class="btn btn-primary" onclick="ShowModal(@item.Id)">Detail</button>*@
+                                                    <!--</td>-->
+                                                </tr>
+
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                        @*</div>*@
+                                    </div>
+                                    <div id="medicalRecord" class="tab-pane fade">
+                                        @*<div class="row">*@
+                                        <table id="exampleMR" class="table vm table-small-font no-mb table-bordered table-striped" style="cursor:pointer;">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Date</th>
+                                                    <th>Doctor</th>
+                                                    <th>Symptoms</th>
+                                                    <th>Diagnostic</th>
+                                                    <th>Prescription</th>
+                                                    @*<th></th>*@
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.medicalRecords != null)
+                                                {
+                                                    @foreach (var item in Model.medicalRecords)
+                                                    {
+                                                <tr onclick="gotoMedicalDetail(@item.Id)">
+
+                                                    <td>@item.Date</td>
+                                                    <td>@item.DoctorName</td>
+                                                    <td>@(item.PatientSymptoms != null && item.PatientSymptoms.Count > 0 ? string.Join(", ", item.PatientSymptoms.Select(x => x.Title)) : "")</td>
+                                                    <td>@(item.PatientDiagnostics != null && item.PatientDiagnostics.Count > 0 ? string.Join(", ", item.PatientDiagnostics.Select(x => x.Title)) : "")</td>
+                                                    <td>@(item.Prescriptions !=null && item.Prescriptions.Count>0? string.Join(", ",item.Prescriptions.Select(x=>x.Drug)):"")</td>
+                                                    @*<td> <a asp-controller="MedicalRecords" asp-action="MedicalRecordDetail" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Detail</a></td>*@
+                                                </tr>
+
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                        @*</div>*@
+                                    </div>
+                                    <div id="ipdRecord" class="tab-pane fade">
+                                        @*<div class="row">*@
+                                        <table id="example" class="table vm table-small-font no-mb table-bordered table-striped" style="cursor:pointer;">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Voucher No</th>
+                                                    <th>Room</th>
+                                                    <th>Bed</th>
+                                                    <th>DOA</th>
+                                                    <th>DODC</th>
+                                                    <th>PaymentType</th>
+                                                    <th>Paid</th>
+                                                    @*<th></th>*@
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.iPDRecords != null)
+                                                {
+                                                    @foreach (var item in Model.iPDRecords)
+                                                    {
+                                                        <tr onclick="gotoIPDRecordDetail(@item.Id)">
+                                                            <td>@item.VoucherNo</td>
+                                                            @if (@item.Room == null)
+                                                            {
+                                                                <td>-</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@item.Room.RoomNo</td>
+                                                            }
+                                                            @if (@item.Bed == null)
+                                                            {
+                                                                <td>-</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@item.Bed.No</td>
+                                                            }
+                                                            <td>@item.DOA
+                                                            <td>
+                                                                @if (@item.DODC == null)
+                                                                {
+                                                                <td>-</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>@item.DODC</td>
+                                                            }
+                                                                <td>@item.PaymentType</td>
+                                                                @*<td>
+                                                                        <input tabindex="5" type="checkbox" disabled class="icheck-minimal-red menuChk" checked="@item.IsPaid">
+                                                                    </td>*@
+                                                                @*<td> <a asp-controller="IPDRecords" asp-action="IPDRecordDetail" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary">Detail</a></td>*@
+
+                                                            </tr>
+
+                                                        }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                        @*</div>*@
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                @*</div>*@
+            </section>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="visitModel" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="visitForm">
+                @*<input asp-for="patientId" hidden />*@
+                <input asp-for="Id" id="id" hidden />
+                <div class="modal-header">
+                    <h4 class="modal-title">Visit Detail</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="Date">Date</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+
+                                <input type="datetime-local" class="form-control" id="date">
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="VisitNo">Visit No</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="visitNo" disabled="@(Model!=null)" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="SpecialityId">Speciality</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="specialityId" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="DepartmentId">Department</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="department" />
+                            </div>
+                        </div>
+                        @*<div class="col-md-4 form-group">
+                                <label class="form-label" for="">&nbsp;</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AvailableDoctors">
+                                        Search Today's Available Doctors
+                                    </button>
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="PatientId">Patient</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="patient" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="DoctorId">Doctor</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="doctor" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="VisitTypeId">Visit Type</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+                                <input type="text" class="form-control" id="visitType" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="form-label" for="Status">Status</label>
+                            <span class="desc"></span>
+                            <div class="controls">
+
+                                <select class="form-control" id="status" asp-items="@Html.GetEnumSelectList<MSIS_HMS.Core.Enums.VisitStatusEnum>()" style="width:100%;">
+                                    <option value="0">Please Select Status</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="form-label" for="ReasonForVisit">Reason For Visit</label>
+                            <span class="desc">*</span>
+                            <div class="controls">
+                                <textarea class="form-control" id="reason"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnclose" onclick="CloseModal()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            var patientId = document.getElementById("patientId").value;
+            getPatientData(patientId);
+        });
+        function getPatientData(patientId) {
+            $.ajax({
+
+                url: `/Patients/GetPatientDetail?patientId=${patientId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        $("#lblName").html(res.name);
+                        $("#lblNrc").html(res.nrc);
+                        $("#lblGender").html(res.gender);
+                        $("#lblDob").html(res.dateOfBirth.toString().split("T")[0]);
+                        $("#lblAddress").html(res.address);
+                        $("#lblPhone").html(res.phone);
+                        $("#lblGuardian").html(res.guardian);
+                        $("#lblReligion").html(res.religion);
+                        var img = document.createElement("img");
+
+                        var div = document.getElementById('patientImg');
+                        if (res.image == "") {
+                            img.src = "/images/add-image.png";
+                        }
+                        else {
+                            img.src = res.image;
+                        }
+
+                        img.style.width = "150px";
+                        img.style.height = "125px";
+                        img.className = "thumbnail";
+                        div.appendChild(img);
+
+
+
+                    }
+
+                }
+
+            });
+        }
+        function ShowModal(id) {
+
+            $.ajax({
+
+                url: `/Visits/GetVisitById?Id=${id}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        document.getElementById("id").value = res.id;
+                        document.getElementById("visitNo").value = res.visitNo;
+                        document.getElementById("patient").value = res.patientName;
+                        // document.getElementById("specialityId").value = res.doctor.speciality;
+                        document.getElementById("doctor").value = res.doctorName;
+                        document.getElementById("visitType").value = res.visitTypeDesc;
+                        //$("#specialityId").select2("val", String(res.specialityId));
+                        //$("#departmentId").select2("val", String(res.departmentId));
+                        //$("#patientId").select2("val", String(res.patientId));
+                        /* $("#doctor").select2("val", String(res.doctorId));*/
+                        //$("#visitTypeId").select2("val", String(res.visitTypeId));
+                        $("#status").select2("val", String(res.status));
+                        document.getElementById("reason").value = res.reasonForVisit;
+                        document.getElementById("date").value = res.date;
+
+                    }
+
+                }
+
+            });
+            $("#visitModel").modal("show");
+        }
+        function CloseModal() {
+            $("#visitModel").modal("hide");
+        }
+        function gotoVisitDetail(id) {
+            window.location = "/Visits/VisitDetail?Id=" + id;
+        }
+        function gotoMedicalDetail(id) {
+            window.location = "/MedicalRecords/MedicalRecordDetail?Id=" + id;
+        }
+        function gotoIPDRecordDetail(id) {
+            window.location = "/ipdRecords/IPDRecordDetail?Id=" + id;
+        }
+
+    </script>
+
+}

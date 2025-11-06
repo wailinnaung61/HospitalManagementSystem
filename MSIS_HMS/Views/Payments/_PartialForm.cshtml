@@ -1,0 +1,292 @@
+﻿@using MSIS_HMS.Enums
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.IPDPayment
+@{
+    var count = 1;
+    var ipdRecordDate = "";
+}
+
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+
+                <div class="content-body">
+
+
+                    <input asp-for="Id" hidden />
+                    <input asp-for="IPDRecordId" id="ipdRecordId" hidden />
+                    @*}*@
+                    <partial name="~/Views/CommonView/PaymentCommon.cshtml" />
+                    <div class="row">
+
+
+                        <div class="col-xs-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#payment" data-toggle="tab">Payment</a></li>
+                                <li><a href="#ipdRecord" data-toggle="tab">Daily Charges</a></li>
+
+                            </ul>
+                            <div class="tab-content">
+
+                                <div id="payment" class="tab-pane fade in active">
+                                    <div class="col-xs-12 ">
+                                        @*<div class="form-group">
+                                                <div class="form-control">
+                                                    <button type="button" class="btn btn-primary gradient-blue pull-right" onclick="ShowModal()">Add Payment</button>
+
+                                                </div>
+                                            </div>*@
+                                        @*<header class="panel_header">*@
+
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary gradient-blue pull-right" onclick="ShowModal()" style="margin-bottom:17px;">Add Payment</button>
+                                        </div>
+                                        @*</header>*@
+
+                                    </div>
+                                    <table id="example" class="table vm table-small-font no-mb table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Date</th>
+                                                <th>Payment Type</th>
+                                                <th>Amount</th>
+                                                <th>Paid By</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Payments)
+                                            {
+                                                <tr>
+                                                    <td>@count</td>
+                                                    <td>@item.Date</td>
+                                                    <td>@item.PaymentType</td>
+                                                    <td>@item.Amount</td>
+                                                    <td>@item.PaidBy</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-xs btn-secondary" onclick="ShowModalForEdit(@item.Id)">Edit</button>
+                                                        <button asp-controller="Payments" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-xs btn-secondary" onclick="DeleteConfirm('/Payments/Delete/',@item.Id)">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                count++;
+                                            }
+                                        </tbody>
+                                    </table>
+
+
+
+                                    <div class="form-group" style="margin-bottom:50px;">
+                                        <a class="btn btn-click btn-primary gradient-blue pull-right ml-5 form-group" asp-controller="Payments" asp-action="Paid" style="margin-top:19px;">Paid</a>
+                                    </div>
+
+
+
+                                </div>
+                                <div id="ipdRecord" class="tab-pane fade">
+
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-1">Discount</label>
+                                            <span class="desc"></span>
+                                            <input type="text" id="discount" value="@ViewBag.Discount"> &nbsp;&nbsp;&nbsp;
+                                            <label class="form-label" for="field-1">Tax</label>
+                                            <span class="desc"></span>
+                                            <input type="text" id="tax" value="@ViewBag.Tax">
+                                            @*<button type="button" class="btn btn-click btn-primary gradient-blue" style="float:right;" onclick="SaveDiscountAndTax()">Save</button>*@
+                                            <button class="btn btn-click btn-primary gradient-blue" onclick="SaveDiscountAndTax()">Save</button>
+                                            <button data-href="/Payments/PrintAmountReport?ipdRecordId=@Model.IPDRecordId" class="btn btn-click btn-primary gradient-blue" style="float:right;" id="btnReceipt">Receipt</button>
+
+                                        </div>
+                                    </div>
+                                    <table id="example" class="table vm table-small-font no-mb table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Day</th>
+                                                <th>Date</th>
+                                                <th>Room Charges</th>
+                                                <th>Medications</th>
+                                                <th>Services</th>
+                                                <th>Fees</th>
+                                                <th>Foods</th>
+                                                <th>Total</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var paymentDetail in ViewBag.PaymentDetail)
+                                            {
+                                                <tr>
+
+                                                    <td>@paymentDetail.Day</td>
+                                                    <td>@paymentDetail.Date</td>
+                                                    <td>@paymentDetail.RoomCharges</td>
+                                                    <td>@paymentDetail.Medications</td>
+                                                    <td>@paymentDetail.Services</td>
+                                                    <td>@paymentDetail.Fees</td>
+                                                    <td>@paymentDetail.Food</td>
+                                                    <td>@paymentDetail.Total</td>
+                                                    <td>
+
+                                                        <button type="button" class="btn btn-xs btn-secondary" onclick="GetDetail('@paymentDetail.Date')" data-toggle="modal" data-target="#ipdRecordDetail">Detail</button>
+
+                                                    </td>
+                                                </tr>
+
+                                                count++;
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @*<div class="col-xs-12 ">
+
+                                            <div class="form-group">
+
+                                                <button data-href="/Payments/PrintReport?ipdRecordId=@Model.IPDRecordId" class="btn btn-click btn-primary gradient-blue" style="float:right;display:none;margin-top:25px;margin-bottom:10px;" id="btnPrint">Print</button>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <table id="recordDetail" class="table vm table-small-font no-mb table-bordered table-striped" style="visibility:hidden">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>No</th>
+                                                            <th>Descriptions</th>
+                                                            <th>Unit Price</th>
+                                                            <th>Qty</th>
+                                                            <th>Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="recordDetailBody">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>*@
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="paymentInput" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add/Edit Payment</h4>
+            </div>
+            <form id="paymentForm" action="/Payments/@ViewData["Action"]" method="post">
+                <div class="modal-body">
+
+                    <input asp-for="IPDRecordId" hidden />
+                    <input asp-for="Id" id="id" hidden />
+
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="col-md-12 form-group">
+
+                                <label class="form-label" for="paidBy">Paid By</label>
+                                <span class="desc"></span>
+                                <input type="text" asp-for="PaidBy" id="paidBy" style="width:100%" />
+                                @*@Html.DropDownListFor(model => model.Doctor, ViewBag.Doctors as SelectList, "---select---", new { @class = "form-control" })*@
+                            </div>
+                            <div class="col-md-12 form-group">
+
+                                <label class="form-label" for="paymentTypeId">Payment Type</label>
+                                <span class="desc"></span>
+                                <select class="controls" asp-for="PaymentType" asp-items="@Html.GetEnumSelectList<MSIS_HMS.Core.Enums.PaymentTypeEnum>()" id="paymentTypeId" style="width:100%;">
+                                    <option value="0">Please Select Payment Type</option>
+                                </select>
+
+
+                                @*@Html.DropDownListFor(model => model.Doctor, ViewBag.Doctors as SelectList, "---select---", new { @class = "form-control" })*@
+                            </div>
+                            <div class="col-md-12 form-group">
+
+                                <label class="form-label" for="amount">Amount</label>
+                                <span class="desc"></span>
+                                <input type="text" asp-for="Amount" id="amount" style="width:100%" />
+
+                                @*@Html.DropDownListFor(model => model.Doctor, ViewBag.Doctors as SelectList, "---select---", new { @class = "form-control" })*@
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label class="form-label" for="Date">Date</label>
+                                <span class="desc"></span>
+                                <div class="controls">
+
+                                    <input type="datetime-local" step="any" id="Date" class="form-control" asp-for="Date" value="@GetCurrentDateString()" />
+
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                   
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary gradient-blue" id="btnSave">Save</button>
+                        <button type="button" class="btn btn-secondary" id="btnclose" onclick="CloseModal()">Close</button>
+                    </div>
+
+                </div>
+            </form>
+            
+           
+
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="ipdRecordDetail" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="form-group">
+
+                        @*<button data-href="/Payments/PrintReport?ipdRecordId=@Model.IPDRecordId" class="btn btn-click btn-primary gradient-blue" style="float:right;margin-top:25px;margin-bottom:10px;" id="btnPrint">Print</button>*@
+                        <a asp-controller="Payments" asp-action="PrintReport" asp-route-ipdRecordId="@Model.IPDRecordId" class="btn btn-click btn-primary gradient-blue" style="float: right; margin-bottom: 10px;">Print</a>
+
+                    </div>
+                    <div class="form-group">
+                        <table id="recordDetail" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>No</th>
+                                    <th>Descriptions</th>
+                                    <th>Unit Price</th>
+                                    <th>Qty</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recordDetailBody">
+                            </tbody>
+                        </table>
+                    </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>

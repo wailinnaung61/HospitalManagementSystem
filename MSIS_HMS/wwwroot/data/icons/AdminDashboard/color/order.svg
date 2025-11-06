@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="80" viewBox="0 0 60 80">
+  <defs>
+    <linearGradient id="linear-gradient" x1="2.514" y1="-0.617" x2="0.72" y2="1.566" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2a57d7"/>
+      <stop offset="1" stop-color="#00e4d0"/>
+    </linearGradient>
+  </defs>
+  <g id="_004-shopping-list" data-name="004-shopping-list" transform="translate(-64)">
+    <g id="Group_2" data-name="Group 2" transform="translate(79)">
+      <g id="Group_1" data-name="Group 1">
+        <path id="Path_8" data-name="Path 8" d="M187.5,5h-5.43a7.5,7.5,0,0,0-14.145,0H162.5A2.5,2.5,0,0,0,160,7.5v10a2.5,2.5,0,0,0,2.5,2.5h25a2.5,2.5,0,0,0,2.5-2.5V7.5A2.5,2.5,0,0,0,187.5,5Z" transform="translate(-160)" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+    <g id="Group_4" data-name="Group 4" transform="translate(64 10)">
+      <g id="Group_3" data-name="Group 3" transform="translate(0)">
+        <path id="Path_9" data-name="Path 9" d="M119,64h-5v7.5a7.509,7.509,0,0,1-7.5,7.5h-25A7.509,7.509,0,0,1,74,71.5V64H69a5.008,5.008,0,0,0-5,5v60a4.945,4.945,0,0,0,5,5h50a4.945,4.945,0,0,0,5-5V69A4.945,4.945,0,0,0,119,64ZM93.27,108.27l-10,10a2.511,2.511,0,0,1-3.54,0l-5-5a2.5,2.5,0,0,1,3.535-3.535l3.235,3.23,8.23-8.23a2.5,2.5,0,0,1,3.54,3.535Zm0-20-10,10a2.511,2.511,0,0,1-3.54,0l-5-5a2.5,2.5,0,0,1,3.535-3.535l3.235,3.23,8.23-8.23a2.5,2.5,0,0,1,3.54,3.535ZM111.5,114h-10a2.5,2.5,0,0,1,0-5h10a2.5,2.5,0,0,1,0,5Zm0-20h-10a2.5,2.5,0,0,1,0-5h10a2.5,2.5,0,0,1,0,5Z" transform="translate(-64 -64)" fill="url(#linear-gradient)"/>
+      </g>
+    </g>
+  </g>
+</svg>

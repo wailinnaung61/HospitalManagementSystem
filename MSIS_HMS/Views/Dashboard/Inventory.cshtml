@@ -1,0 +1,262 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "Inventory Dashboard";
+    var i = 0;
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.PurchaseOrder <small>Orders</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/purchased.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Purchased Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DeliverOrder <small>Orders</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/delivered.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Delivered Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.WarehouseTransfer <small>Items Transferred</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/to-warehouse.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>To Warehouse Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.OutletTransfer  <small>Items Transferred</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/to-outlet.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>To Outlet Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Returned <small>Items</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/return.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Returned Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Scratched  <small>Items</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/scratched.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Scratched Today</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Items <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/medicine.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Items/Medicines</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.ItemType <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/item_type.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Item Types</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Warehouse <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/warehouses.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Warehouses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Outlets <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/PharmacyDashboard/color/outlet.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Outlets</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Batches <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/batches.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Batches</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Locations <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/InventoryDashboard/color/location.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Locations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-lg-8">
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Expiration Reminder</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Warehouse</th>
+                                    <th>Item</th>
+                                    <th>Batch</th>
+                                    <th>Qty</th>
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.ExpiryItem)
+                                {
+                                    i += 1;
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@item.WarehouseName</td>
+                                        <td>@item.ItemName</td>
+                                        <td>@item.BatchName</td>
+                                        <td>@item.QtyString</td>
+                                        <td>@item.ExpiryDate.ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <header class="panel_header">
+            <h2 class="title pull-left">Purchase Orders</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="chart-container">
+                        <div class="" style="height:200px" id="browser_type_purchase"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+
+<!-- MAIN CONTENT AREA ENDS -->

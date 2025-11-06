@@ -1,0 +1,67 @@
+@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "Create Visit";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<partial name="_PartialForm" />
+
+@section Scripts
+{
+    <script>
+        @*function getDoctors() {
+            $.ajax({
+                url: `/Doctors/GetAll?DepartmentType=@(MSIS_HMS.Core.Enums.DepartmentTypeEnum.OPD)&DepartmentId=${$("#DepartmentId").val()}&SpecialityId=${$("#SpecialityId").val()}`,
+                type: 'get',
+                success: function (res) {
+                    setDepartments(JSON.parse(JSON.stringify(res || [])));
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+
+                }
+            });
+        }
+        $("#SpecialityId").change(function () {
+            getDoctors();
+        });
+        $("#DepartmentId").change(function () {
+            getDoctors();
+        });*@
+
+        function onSelectDoctor(id) {
+            $('#AvailableDoctors').modal('hide');
+            $("#DoctorId").val(id).trigger('change');
+        }
+
+        $('#AvailableDoctors').on('show.bs.modal', function (e) {
+            $.ajax({
+                url: `/Doctors/GetAvailableDoctors?DepartmentType=@((int)MSIS_HMS.Core.Enums.DepartmentTypeEnum.OPD)&DepartmentId=${$("#DepartmentId").val()}&SpecialityId=${$("#SpecialityId").val()}`,
+                type: 'get',
+                success: function (res) {
+                    var html = "";
+                    for (var i = 0; i < res.length; i++) {
+                        html += `
+                                <tr>
+                                    <td>${i+1}</td>
+                                    <td>${res[i].name}</td>
+                                    <td>${tConvert(res[i].fromTime)}</td>
+                                    <td>${tConvert(res[i].toTime)}</td>
+                                    <td>${res[i].patientInQueue}</td>
+                                    <td>${res[i].estWaitingTime}</td>
+                                    <td><button class="btn btn-xs btn-secondary" onclick="onSelectDoctor(${res[i].id})">Select</button></td>
+                                </tr>
+                                `;
+                    }
+                    $("#AvailableDoctorsTableBody").html(html);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+
+                }
+            });
+        })
+
+        $('#AvailableDoctors').on('hidden.bs.modal', function (e) {
+            $("#AvailableDoctorsTableBody").html("");
+        })
+    </script>
+}

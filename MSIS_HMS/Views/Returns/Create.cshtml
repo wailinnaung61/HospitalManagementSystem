@@ -1,0 +1,26 @@
+﻿@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.Return
+@{
+    ViewData["Title"] = "Create Return";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+<partial name="_PartialForm" />
+@section Scripts
+{
+    <script type="text/javascript">
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _action = '@ViewEnum.Action.Create.ToDescription()';
+        var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+        var _transferItemType = "ReturnItems";
+        var _warehouseId = '@(Model==null?0:Model.WarehouseId)';
+        var _outletId = '@(Model==null?0:Model.OutletId)';
+        @*var _percentageForSale = '@(Model == null ? 0 : Model.PercentageForSale)';*@
+        var _purchaseItems = JSON.parse('@Json.Serialize(Model == null ? new List<ReturnItem>() : Model.ReturnItems == null ? new List<ReturnItem>() : Model.ReturnItems.ToList())');
+    </script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/transfer-item.js" type="text/babel"></script>
+}

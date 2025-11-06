@@ -1,0 +1,186 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.Visit
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/Visits/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+
+                            <input asp-for="Id" hidden />
+                            <input asp-for="BranchId" hidden />
+
+                            @if (Model != null)
+                            {
+                                <input asp-for="VisitNo" hidden />
+                                @if (Model.PatientId != 0)
+                                {
+                                    <input asp-for="PatientId" hidden />
+                                }
+                            }
+                            <div class="col-xs-12 ">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Date">Date</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+
+                                            <input type="datetime-local" class="form-control" asp-for="Date" disabled>
+
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="VisitNo">Visit No</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="VisitNo" disabled="@(Model!=null)" />
+                                            <span asp-validation-for="VisitNo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="SpecialityId">Speciality</label>
+                                        <span class="desc"></span>
+
+                                        <div class="controls">
+                                            <select class="form-control" name="SpecialityId" id="SpecialityId" asp-items="ViewBag.Specialities" disabled>
+                                                <option value="">Please Select Speciality</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="DepartmentId">Department</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" name="DepartmentId" id="DepartmentId" asp-items="ViewBag.Departments" disabled>
+                                                <option value="">Please Select Department</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="">&nbsp;</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AvailableDoctors" disabled>
+                                                Search Today's Available Doctors
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="PatientId">Patient</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients" disabled="@(Model!=null && Model.PatientId != 0)">
+                                                <option value="">Please Select Patient</option>
+                                            </select>
+                                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="DoctorId">Doctor</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="DoctorId" asp-items="ViewBag.Doctors" disabled>
+                                                <option value="">Please Select Doctor</option>
+                                            </select>
+                                            <span asp-validation-for="DoctorId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="VisitTypeId">Visit Type</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="VisitTypeId" asp-items="ViewBag.VisitTypes" disabled>
+                                                <option value="">Please Select Visit Type</option>
+                                            </select>
+                                            <span asp-validation-for="VisitTypeId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Status">Status</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="Status" asp-items="@Html.GetEnumSelectList<MSIS_HMS.Core.Enums.VisitStatusEnum>()" disabled>
+                                                <option value="">Please Select Status</option>
+                                            </select>
+                                            <span asp-validation-for="Status" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label" for="ReasonForVisit">Reason For Visit</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <textarea class="form-control" asp-for="ReasonForVisit" disabled></textarea>
+                                            <span asp-validation-for="ReasonForVisit" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+
+                                    <button type="button" data-href="/Patients/PatientDetail?patientId=@Model.PatientId" class="btn btn-primary gradient-blue btn-click">Back To List</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade col-xs-12" id="AvailableDoctors" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65%">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Available Doctors</h4>
+                </div>*@
+            <div class="modal-body">
+
+                <table id="example" class="display table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Doctor</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Patient In Queue</th>
+                            <th>Est Wating Time</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="AvailableDoctorsTableBody">
+                    </tbody>
+                </table>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>*@
+        </div>
+    </div>
+</div>

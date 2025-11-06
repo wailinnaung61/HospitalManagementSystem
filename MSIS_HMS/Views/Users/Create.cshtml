@@ -1,0 +1,69 @@
+﻿@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "Create User";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+<partial name="_PartialForm.cshtml" />
+
+@section Scripts
+{
+    <script>
+        
+        $('#select-all').click(function(event) {   
+            if(this.checked) {
+                $(':checkbox:visible').each(function() {
+                    this.checked = true;                        
+                });
+            } else {
+                $(':checkbox:visible').each(function() {
+                    this.checked = false;                       
+                });
+            }
+         }); 
+
+        function getOutlets(branchId) {
+            $.ajax({
+                url: `/outlets/getall?BranchId=${branchId}`,
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        var html = `<option value="">Please Select Outlet</option>`;
+                        for (var i = 0; i < res.length; i++) {
+                            html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                        }
+                        $('#OutletId').html(html);
+                    }
+                },
+            });
+        }                
+        $(document).ready(function () {            
+            $('.hasBranchId').hide();
+            $('.hasOutletId').hide();
+            $('.hasDoctorId').hide();
+            $('#BranchId').change(function (e) {                 
+                if ($('#BranchId').val() != '' && $('#OutletId').val() == '' && $('#DoctorId').val() == '') {
+                        $('.hasBranchId').show();
+                        $('.hasOutletId').hide();
+                        $('.hasDoctorId').hide();
+                    }
+              
+            });
+            $('#OutletId').change(function (e) {
+                if ($('#BranchId').val() != '' && $('#OutletId').val() != '' && $('#DoctorId').val() == '') {
+                    $('.hasBranchId').show();
+                    $('.hasOutletId').show();
+                    $('.hasDoctorId').hide();
+                }
+            });
+            $('#DoctorId').change(function (e) {
+                if ($('#BranchId').val() != '' && $('#OutletId').val() != '' && $('#DoctorId').val() != '') {
+                    $('.hasBranchId').show();
+                    $('.hasOutletId').show();
+                    $('.hasDoctorId').show();
+                }
+            });
+                       
+        });
+    </script>
+
+}

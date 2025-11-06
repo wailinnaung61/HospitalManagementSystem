@@ -1,0 +1,103 @@
+﻿@using MSIS_HMS.Infrastructure.Enums
+@model List<MSIS_HMS.Core.Entities.Menu>
+@{
+    var controller = ViewContext.RouteData.Values["Controller"].ToString().ToLower();
+    var action = ViewContext.RouteData.Values["Action"].ToString();
+    action = !string.IsNullOrEmpty(action) ? action.ToLower() : "index";
+    var path = Url.Content("~/");   
+
+}
+<div class="page-sidebar fixedscroll">
+
+    <!-- MAIN MENU - START -->
+    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+
+        <ul class='wraplist'>           
+
+            <!-- Superadmin Tools - START -->
+            @if (User.IsInRole(RoleEnum.Role.Superadmin.ToDescription()))
+            {
+                <li class='menusection'>Superadmin Tools</li>
+                <li class="">
+                    <a href="/Modules">
+                        <i class="img">
+                            <img src="../data/hos-dash/icons/4.png" alt="" class="width-20">
+                        </i>
+                        <span class="title">Modules</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Menus">
+                        <i class="img">
+                            <img src="../data/hos-dash/icons/4.png" alt="" class="width-20">
+                        </i>
+                        <span class="title">Menus</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="/Branches">
+                        <i class="img">
+                            <img src="../data/hos-dash/icons/4.png" alt="" class="width-20">
+                        </i>
+                        <span class="title">Branches</span>
+                    </a>
+                </li>
+            }
+            <!-- Superadmin Tools - END -->
+            <!-- User Access Menu - START -->
+            @foreach (var item in Model)
+            {
+                if (item.ChildMenus.Count() > 0)
+                {
+                    <li class='menusection'>@item.DisplayName</li>
+                    @foreach (var child in item.ChildMenus)
+                    {
+                        if (child.IsGroup)
+                        {
+                            if (child.ChildMenus != null && child.ChildMenus.Count() > 0)
+                            {
+                                var open = child.ChildMenus.Select(x => x.Controller?.ToLower()).Contains(controller) && child.ChildMenus.Select(x => !string.IsNullOrEmpty(x.Action) ? x.Action.ToLower() : "index").Contains(action) ? "open" : "";
+                                <li class="@open">
+                                    <a href="javascript:;">
+                                        <i class="img">
+                                            <img src="@(path+child.Image)" alt="" class="width-20">
+                                        </i>
+                                        <span class="title">@child.DisplayName</span>
+                                        <span class="arrow "></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @foreach (var groupItem in child.ChildMenus.OrderBy(x => x.MenuOrder))
+                                        {
+                                            var childAction = !string.IsNullOrEmpty(groupItem.Action) ? groupItem.Action.ToLower() : "index";
+                                            var active = groupItem.Controller?.ToLower() == controller && groupItem.Action?.ToLower() == action ? "active" : "";
+                                            <li>
+                                                <a class="@active" href="/@groupItem.Controller/@groupItem.Action@groupItem.Params">@groupItem.DisplayName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            var childAction = !string.IsNullOrEmpty(child.Action) ? child.Action.ToLower() : "index";
+                            var active = child.Controller?.ToLower() == controller && child.Action?.ToLower() == action ? "open" : "";
+                            <li class="@active">
+                                <a href="/@child.Controller/@child.Action@child.Params">
+                                    <i class="img">
+                                        <img src="@(path+child.Image)" alt="" class="width-20">
+                                    </i>
+                                    <span class="title">@child.DisplayName</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                }
+            }
+            <!-- User Access Menu - END -->
+        </ul>
+
+    </div>
+    <!-- MAIN MENU - END -->
+
+</div>

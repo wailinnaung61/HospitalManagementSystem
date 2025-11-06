@@ -1,0 +1,159 @@
+﻿@using MSIS_HMS.Enums
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using static MSIS_HMS.Helpers.FormatHelper
+@model IPagedList<MSIS_HMS.Core.Entities.Grounding>
+@{
+    var controller = "Groundings";
+    ViewData["Title"] = "All " + controller;
+    var count = 1;
+    var query = Context.Request.Query;
+    var WarehouseId = query["WarehouseId"];
+    var FromDate = query["FromDate"];
+    var ToDate = query["ToDate"];
+    ViewData["Query"] = query;
+}
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                        <div class="panel-body">
+                            <form method="get" action="/@controller/Index">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-2">Warehouses</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select name="WarehouseId" asp-items="ViewBag.Warehouses" class="form-control">
+                                                    <option value="">Please Select Parent Menu</option>
+                                                </select>
+                                                @* <span asp-validation-for="BranchId" class="text-danger"></span> *@
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="FromDate">From Date</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="FromDate" value="@FromDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="ToDate">To Date</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="ToDate" value="@ToDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                <button type="button" data-href="/@controller/index" class="btn btn-click">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <button data-href="/@controller/create" class="btn btn-click btn-primary gradient-blue">Create</button>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Date</th>
+                                        <th>Warehouse</th>
+                                        <th>Remark</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Date.ToString("dd-MM-yyyy")</td>
+                                            <td>@item.WarehouseName</td>
+                                            <td>@item.Remark</td>
+                                            
+                                        </tr>
+                                        @if (item.GroundingItems != null)
+                                        {
+                                            <tr>
+                                                <th></th>
+                                                <th>Item</th>
+                                                <th>Previous Qty</th>
+                                                <th>Changed Qty</th>
+                                            </tr>
+                                        }
+                                        @foreach (var groundingItems in item.GroundingItems)
+                                        {
+                                            <tr>
+                                                <td></td>
+                                                <td>@groundingItems.Item.Name</td>
+                                                <td>@groundingItems.PreviouseQty</td>
+                                                <td>@groundingItems.ChangedQty</td>
+
+                                            </tr>
+                                        }
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+
+    @if (TempData["notice"] != null)
+    {
+        switch ((int)TempData["notice"])
+        {
+            case (int)StatusEnum.NoticeStatus.Success:
+                <script>SaveAlert('center', 'success', 'Grounding');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Edit:
+                <script>EditAlert('center', 'success', 'Grounding');</script>
+                break;
+            case (int)StatusEnum.NoticeStatus.Delete:
+                <script>DeleteAlert('center', 'success', 'Grounding');</script>
+                break;
+        }
+
+    }
+}

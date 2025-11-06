@@ -1,0 +1,309 @@
+﻿@using MSIS_HMS.Core.Entities
+@{
+    ViewData["Title"] = "Out Patient Dashboard";
+}
+
+<div class="dashboard col-lg-12">
+    <section class="box nobox marginBottom0">
+        <div class="content-body">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.newPatients <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/OPDDashboard/color/new-patient.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>New Patients</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.Visit <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/OPDDashboard/color/visit.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Today's Visits</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.DoctorCount  <small></small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/OPDDashboard/color/doctor.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>Doctors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="r4_counter db_box">
+
+                        <div class="stats1">
+                            <h3 class="mb-5">
+                                @ViewBag.cfFee <small>MMK</small>
+                                <i class="pull-right ico-icon icon-md icon-primary mt-10">
+                                    <img src="../data/icons/OPDDashboard/color/cffee.svg" class="ico-icon-o" alt="">
+                                </i>
+                            </h3>
+                            <span>CFFee Today</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End .row -->
+        </div>
+    </section>
+</div>
+
+<div class="clearfix"></div>
+<!-- MAIN CONTENT AREA STARTS -->
+
+<div class="col-lg-8">
+    <section class="box" style="overflow:hidden">
+        <header class="panel_header">
+            <h2 class="title pull-left">Hospital Visits Statistics</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="demoarea-chart">
+                        <div id="demoarea-container" style="width: 100%;height:330px; text-align: center; margin:0 auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">Patient Queue</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Visit No</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Type</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var i = 1;
+                                    //string pName = "";
+                                }
+                                @foreach (var vp in ViewBag.VisitPatient)
+                                {
+                                    
+                                    <tr>
+                                        <td>@(i).</td>
+                                        <td>@vp.VoucherNo</td>
+                                        <td>
+                                            @*pName=@vp.PatientName.charAt(0);
+                                            <div class="round">@pName</div>*@
+                                            @*<div class="designer-info">*@
+                                                <h6>@vp.PatientName</h6>
+                                                <small class="text-muted">@vp.PatientGender, @vp.PatientAge Years</small>
+                                            @*</div>*@
+                                        </td>
+                                        <td>@vp.DoctorName</td>
+                                        <td>@vp.VisitTypeDesc</td>
+
+                                    </tr>
+                                    i++;
+                                }
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box">
+        <header class="panel_header">
+            <h2 class="title pull-left">View Patient By Doctor</h2>
+            <div class="actions panel_actions pull-right">
+                <a class="box_toggle fa fa-chevron-down"></a>
+                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                <a class="box_close fa fa-times"></a>
+            </div>
+        </header>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table vm table-small-font no-mb table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Doctor</th>
+                                    <th>Queue Patient</th>
+                                    <th>Completed Patient</th>
+                                    
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var j = 1;
+                                }
+                                @foreach (var vp in ViewBag.DoctorHistory)
+                                {
+
+                                <tr>
+                                    <td>@(j).</td>
+                                    <td>@vp.DoctorName</td>
+                                    <td>
+                                        @if (vp.BookPatient != 0)
+                                        {
+                                            <h6>@vp.BookPatient</h6>
+                                            @*<small class="text-muted">@vp.PatientGender, @vp.PatientAge Years</small>*@
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @if (vp.CompletedPatient != 0)
+                                        {
+                                            <h6>@vp.CompletedPatient</h6>
+                                            @*<small class="text-muted">@vp.PatientGender, @vp.PatientAge Years</small>*@
+                                        }
+
+
+                                    </td>
+                                    
+
+                                </tr>
+                                    j++;
+                                }
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <div class="content-body p">
+            <div class="row">
+                <div class="doctors-list relative gradient-blue2">
+                    <div class="doctors-head text-center">
+                        <h3 class="header w-text relative bold">Doctors List</h3>
+                        @*<p class="desc g-text relative">Lorem ipsum dolor sit amet, Earum nes ciunt fugiat enim. Sequi quos labore.</p>*@
+                    </div>
+                    @foreach (var doc in ViewBag.Doctors)
+                    {
+                        <div class="doctor-card has-shadow">
+                            <div class="doc-info-wrap">
+                                <div class="doctor-img">
+                                    <img src=@Url.Action("Images",Path= @doc.Image) alt="">
+                                </div>
+                                <div class="doc-info">
+                                    <h4 class="bold">@doc.Name</h4>
+                                    <h5>@doc.SpecialityName</h5>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                    <div class="form-group no-mb">
+                        <button type="button" class="btn btn-primary btn-lg mt-20 gradient-blue" style="width:100%"> View all doctors</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<!--<div class="col-xs-12 col-md-6 col-lg-4">
+    <section class="box ">
+        <div class="content-body p">
+            <div class="row">
+                <div class="doctors-list relative">
+                    <div class="doctors-head text-center">
+                        <h3 class="header w-text relative bold">Doctors List</h3>-->
+@*<p class="desc g-text relative">Lorem ipsum dolor sit amet, Earum nes ciunt fugiat enim. Sequi quos labore.</p>*@
+<!--</div>
+
+    <div class="doctor-card has-shadow">
+        <div class="doc-info-wrap">
+            <div class="doctor-img">
+                <img src= alt="">
+            </div>
+            <div class="doc-info">
+                <h4 class="bold"></h4>
+                <h5></h5>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="form-group no-mb">
+    <button data-href="/Doctors/Index" class="btn btn-click btn-primary btn-lg mt-20 gradient-blue" style="width:100%"> View all doctors</button>-->
+@*<button data-href="/Doctors/Index" class="btn btn-click btn-primary gradient-blue">Create</button>*@
+
+<!--</div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>-->
+
+<div class="clearfix"></div>
+
+<!-- MAIN CONTENT AREA ENDS -->

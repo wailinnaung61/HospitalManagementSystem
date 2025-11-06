@@ -1,0 +1,126 @@
+@using MSIS_HMS.Enums
+@{
+    ViewData["Title"] = "Edit Patient";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<partial name="_PartialForm" />
+@section Scripts
+{
+<script src="~/js/image-upload.js"></script>
+<script src="~/js/react.production.min.js"></script>
+<script src="~/js/react-dom.production.min.js"></script>
+<script src='~/js/babel.js'></script>
+<script src='~/js/react/react-custom-hooks.js'></script>
+
+<script>
+
+    function getBarcodeandQRCode(regno,date) {
+            debugger;
+            $.ajax({
+                  type: 'GET',
+                  url: `/patients/GenerateQRCode?regno=${regno}&date=${date}`,
+                  success: function (result) {
+                      $("#qrcode").attr("src",result);
+
+                    $.ajax({
+                              type: 'GET',
+                              url: `/patients/GenerateBarcode?regno=${regno}`,
+                              success: function(result) {
+                                 $("#barcode").attr("src",result);
+                              }
+                          });
+                  },
+                  error: function(result) {
+                      console.log("error");
+                  }
+            });
+        }
+
+
+    function getState(countryId) {
+        $.ajax({
+
+            url: `/patients/GetState?countryId=${countryId}`,
+            type: 'get',
+            success: function (res) {
+                if (res) {
+                    var html = `<option value="">Please Select State</option>`;
+                    for (var i = 0; i < res.length; i++) {
+                        html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                    }
+                    $('#StateId').html(html);
+                }
+            }
+        });
+    }
+    function getCity(stateId) {
+        $.ajax({
+
+            url: `/patients/GetCity?stateId=${stateId}`,
+            type: 'get',
+            success: function (res) {
+                if (res) {
+                    var html = `<option value="">Please Select City</option>`;
+                    for (var i = 0; i < res.length; i++) {
+                        html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                    }
+                    $('#CityId').html(html);
+                }
+
+            }
+
+        });
+    }
+    function getTownship(cityId) {
+        $.ajax({
+
+            url: `/patients/GetTownship?cityId=${cityId}`,
+            type: 'get',
+            success: function (res) {
+                if (res) {
+                    var html = `<option value="">Please Select Township</option>`;
+                    for (var i = 0; i < res.length; i++) {
+                        html += `<option value="${res[i].id}">${res[i].name}</option>`;
+                    }
+                    $('#TownshipId').html(html);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {       
+        $('#StateId').change(function (e) {
+            getCity($('#StateId').val());
+        });
+        $('#CityId').change(function (e) {
+            getTownship($('#CityId').val());
+        });
+        $('#CountryId').change(function (e) {
+            getState($('#CountryId').val());
+        });
+
+        if($('#RegNo').val() != null)
+        {    debugger;         
+             let date = $('#ptdate').val();
+             getBarcodeandQRCode($('#RegNo').val(),date);
+        }
+
+        $("#RegNo").change(function(){
+             debugger;
+             let date = $('#ptdate').val();
+             getBarcodeandQRCode($('#RegNo').val(),$('#ptdate').val(),date);
+        });
+
+        $("#ptdate").change(function(){
+             let date = $('#ptdate').val();
+             getBarcodeandQRCode($('#RegNo').val(),$('#ptdate').val(),date);
+        });
+
+
+    });
+
+
+</script>
+
+}

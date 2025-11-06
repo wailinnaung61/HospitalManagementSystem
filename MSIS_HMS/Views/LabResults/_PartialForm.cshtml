@@ -1,0 +1,100 @@
+@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.LabResult
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Result Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/LabResults/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                                <input asp-for="ResultNo" hidden />
+                                <input asp-for="IsCompleted" hidden />
+                                <input asp-for="CompletedDate" hidden />
+                                <input asp-for="UnitPrice" hidden />
+                                <input asp-for="TechnicianFee" hidden />
+                                <input asp-for="TechnicianFeeType" hidden />
+                                <input asp-for="ConsultantFee" hidden />
+                                <input asp-for="ConsultantFeeType" hidden />
+                            }
+                            @if ((bool)ViewBag.UseVoucherFormat)
+                            {
+                                <input asp-for="ResultNo" hidden />
+                            }
+
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="OrderDate">Date</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                                            {
+                                                <input type="date" class="form-control" asp-for="Date">
+                                            }
+                                            else
+                                            {
+                                                <input type="date" class="form-control" asp-for="Date" value="@DateTime.Now.ToDateString()">
+                                            }
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="ResultNo">Result No</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="ResultNo" disabled="@(ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription() || (bool)ViewBag.UseVoucherFormat)">
+                                            <span asp-validation-for="ResultNo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <label class="form-label" for="PatientId">Patient</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients">
+                                                <option value="">Please Select Patient</option>
+                                            </select>
+                                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-12 form-group">
+                                        <div class="row" id="root"></div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label" for="Remark">Remark</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Remark">
+                                            <span asp-validation-for="Remark" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="submit" name="IsCompleted" value="true" class="btn btn-primary gradient-blue">Complete</button>
+                                    <button type="button" data-href="/LabResults/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Core.Enums.GenderEnum;
+@model MSIS_HMS.Core.Entities.LabPerson
+
+<div class="col-xs-12 ">
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/LabPersons/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="field-1">Name</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="field-1" asp-for="Name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="field-7">Code</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="field-7" asp-for="Code">
+                                            <span asp-validation-for="Code" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="field-2">Phone</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="field-2" asp-for="Phone">
+                                            <span asp-validation-for="Phone" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8 form-group">
+                                        <label class="form-label" for="field-9">Address</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" id="field-2" asp-for="Address">
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="Gender">Gender</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                                                <option selected="selected" value="">Please select Gender</option>
+                                            </select>
+                                            <span asp-validation-for="Gender" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="Gender">Technician/Consultant</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="Type" asp-items="Html.GetEnumSelectList<MSIS_HMS.Core.Enums.LabPersonTypeEnum>()">
+                                                <option selected="selected" value="">Please select Type</option>
+                                            </select>
+                                            <span asp-validation-for="Type" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="DoctorId">Doctor</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="DoctorId" asp-items="ViewBag.Doctors">
+                                                <option value="">Please Select Doctor</option>
+                                            </select>
+                                            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 form-group">
+                                        <label class="form-label" for="DepartmentId">Department</label>
+                                        <span class="desc">*</span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="DepartmentId" asp-items="ViewBag.Departments">
+                                                <option value="">Please Select Department</option>
+                                            </select>
+                                            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        <label class="form-label" for="field-10">Remark</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <textarea asp-for="Remark" class="form-control autogrow" cols="5" id="field-10" style="overflow: hidden; overflow-wrap: break-word; resize: horizontal; height: 54px;"></textarea>
+                                            <span asp-validation-for="Remark" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="root"></div>
+                                <div class="row">
+                                    <div class="col-xs-12  padding-bottom-30">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                            <button type="button" data-href="/LabPersons/Index" class="btn btn-click">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+}

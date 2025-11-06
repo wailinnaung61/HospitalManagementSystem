@@ -1,0 +1,232 @@
+@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.MedicalRecord
+
+<div class="col-xs-12 ">
+
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/MedicalRecords/@ViewData["Action"]" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                            {
+                                <input asp-for="Id" hidden />
+                                <input asp-for="BranchId" hidden />
+                            }
+                            @if (Model != null)
+                            {
+                                <input asp-for="DepartmentType" hidden />
+                                <input asp-for="VisitId" hidden />
+                                <input asp-for="PatientId" hidden />
+                                <input asp-for="DoctorId" hidden />
+                            }
+                            <input asp-for="IPDRecordId" hidden />
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="OrderDate">Date</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            @if (ViewData["Action"].ToString() == ViewEnum.Action.Edit.ToDescription())
+                                            {
+                                                <input type="datetime-local" class="form-control" asp-for="Date" step="any">
+                                            }
+                                            else if (ViewData["Action"].ToString() == "MedicalRecordDetail")
+                                            {
+                                                <input type="datetime-local" class="form-control" asp-for="Date" step="any">
+                                            }
+                                            else
+                                            {
+                                                <input type="datetime-local" class="form-control" asp-for="Date" step="any" value="@GetCurrentDateTimeString()">
+                                            }
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="PatientId">Patient</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients" id="PatientId" disabled>
+                                                <option value="">Please Select Patient</option>
+                                            </select>
+                                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 form-group">
+                                        <ul class="nav nav-tabs">
+                                            <li  class="active"><a href="#symbtom" data-toggle="tab">Chief Complaint</a></li>
+                                            <li><a href="#history" data-toggle="tab">History</a></li>
+                                            <li><a href="#vital" data-toggle="tab">Vital</a></li>
+                                            <li><a href="#diagnosis" data-toggle="tab">Diagnosis</a></li>
+                                            <li><a href="#diagnostics" data-toggle="tab">Imaging</a></li>
+                                            <li><a href="#prescriptions" data-toggle="tab">Treatment</a></li>
+                                            <li><a href="#editor" data-toggle="tab">Notes (Editor)</a></li>
+                                            <li><a href="#pen" data-toggle="tab">Notes (Pen)</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="vital" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="GCS">GCS</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="GCS">
+                                                            <span asp-validation-for="GCS" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="BPSystolic">BPSystolic</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="BPSystolic">
+                                                            <span asp-validation-for="BPSystolic" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="BPDiastolic">BPDiastolic</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="BPDiastolic">
+                                                            <span asp-validation-for="BPDiastolic" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="Temperature">Temperature (°F)</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="Temperature">
+                                                            <span asp-validation-for="Temperature" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="Pulse">Pulse</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="Pulse">
+                                                            <span asp-validation-for="Pulse" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="SPO2">SPO2</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="SPO2">
+                                                            <span asp-validation-for="SPO2" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="RespiratoryRate">Respiratory Rate</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="RespiratoryRate">
+                                                            <span asp-validation-for="RespiratoryRate" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="Weight">Weight (lb)</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="Weight">
+                                                            <span asp-validation-for="Weight" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="form-label" for="Height">Height (cm)</label>
+                                                        <span class="desc"></span>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" asp-for="Height">
+                                                            <span asp-validation-for="Height" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="symptoms" class="tab-pane fade in active">
+                                                <div id="symptom_root"></div>
+                                            </div>
+                                            <div id="history" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <textarea id="historynote" name="History"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="diagnosis" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <textarea id="diagnosisnote" name="Diagnosis"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="diagnostics" class="tab-pane fade">
+                                                <div id="diagnostic_root"></div>
+                                            </div>
+                                            <div id="prescriptions" class="tab-pane fade">
+                                                <div id="prescription_root"></div>
+                                            </div>
+                                            <div id="editor" class="tab-pane fade">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <textarea id="summernote" name="DoctorNotes"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="pen" class="tab-pane fade">
+                                                <div id="digital">
+                                                    <div style=" margin-top: 20px;">
+                                                        <div style="display: inline-block; margin-left: 10px">
+                                                            <button type="button" id="clear-canvas" class="btn btn-info">Clear</button><br>
+                                                        </div>
+                                                    </div>
+                                                    <div class="canvas-container">
+                                                        <input asp-for="DoctorNotesImgContent" id="canvasData" hidden />
+                                                        <canvas id="c" width="864" height="1000" style="border: 2px solid rgb(170, 170, 170);touch-action: none; user-select: none;" class="lower-canvas" cursor: crosshair;></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (ViewData["Action"].ToString() != "MedicalRecordDetail")
+                            {
+                                <div class="col-xs-12  padding-bottom-30">
+                                    <div class="text-left">
+
+                                        <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                        <button type="button" data-href="/MedicalRecords/index" class="btn btn-click">Cancel</button>
+
+
+                                    </div>
+                                </div>
+                            }
+                            @if (ViewData["Action"].ToString() == "MedicalRecordDetail")
+                            {
+                                <div class="col-xs-12  padding-bottom-30">
+                                    <div class="text-left">
+
+                                        <button type="button" data-href="/Patients/PatientDetail?patientId=@Model.PatientId" class="btn btn-primary gradient-blue btn-click">Back To List</button>
+
+                                    </div>
+                                </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

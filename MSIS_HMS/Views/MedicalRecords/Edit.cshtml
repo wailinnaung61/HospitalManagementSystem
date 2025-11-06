@@ -1,0 +1,60 @@
+@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.MedicalRecord
+@{
+    ViewData["Title"] = "Edit MedicalRecord";
+    ViewData["Action"] = ViewEnum.Action.Edit.ToDescription();
+}
+
+<link href="~/css/fabric-draw.css" rel="stylesheet" type="text/css" />
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _doctorId = '@(Model == null ? 0 : Model.DoctorId)';
+        var _patientSymptoms = JSON.parse('@Json.Serialize(Model == null ? new List<PatientSymptom>() : Model.PatientSymptoms == null ? new List<PatientSymptom>() : Model.PatientSymptoms.ToList())');
+        var _patientDiagnostics = JSON.parse('@Json.Serialize(Model == null ? new List<PatientDiagnostic>() : Model.PatientDiagnostics == null ? new List<PatientDiagnostic>() : Model.PatientDiagnostics.ToList())');
+        var _prescriptions = JSON.parse('@Json.Serialize(Model == null ? new List<Prescription>() : Model.Prescriptions == null ? new List<Prescription>() : Model.Prescriptions.ToList())');
+        var _viewName = "";
+    </script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>$(document).ready(function () {
+    $('#summernote').summernote({ minHeight: 300 });
+    $('#historynote').summernote({ minHeight: 300 });
+    $('#diagnosisnote').summernote({ minHeight: 300 });
+        });</script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+
+    @*React Select*@
+    <script src="~/js/react/dist/emotion.umd.min.js"></script>
+    <script src="~/js/react/dist/prop-types.min.js"></script>
+    <script src="~/js/react/dist/react-input-autosize.min.js"></script>
+    <script src="~/js/react/dist/react-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-modal/3.14.4/react-modal.min.js" integrity="sha512-c8TkLDLvgzEeX3w/zBJNYGwg/ubWh3ldXPs3AjY4ErCwEcjfbYubW3XELRsV2n3XzBn6Uq/bZvW3jWuKqlutVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/symptom.js" type="text/babel"></script>
+    <script src="~/js/react/diagnostic.js" type="text/babel"></script>
+    <script src="~/js/react/prescription.js" type="text/babel"></script>
+
+    <script src="~/js/fabric.min.js"></script>
+    <script src="~/js/fabric-draw.js"></script>
+    <script>
+        $(document).ready(function (e) {
+            var decoded = $("<div/>").html('@(Model == null ? "" : Model.DoctorNotes)').text();
+            $("#summernote").summernote('code', decoded);
+            var historyDecode = $("<div/>").html('@(Model == null ? "" : Model.History)').text();
+            $("#historynote").summernote('code', historyDecode);
+             var diagnosisDecode = $("<div/>").html('@(Model == null ? "" : Model.Diagnosis)').text();
+            $("#diagnosisnote").summernote('code', diagnosisDecode);
+            setCanvasBackground($("#canvasData").val());
+        });
+    </script>
+}

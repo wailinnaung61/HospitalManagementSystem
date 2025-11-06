@@ -1,0 +1,204 @@
+﻿@using MSIS_HMS.Enums
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@model IPagedList<MSIS_HMS.Core.Entities.DTOs.WarehouseItemDTO>
+@{
+    var controller = "Warehouses";
+    ViewData["Title"] = "Warehouses' Stock Report";
+    var count = 1;
+    var query = Context.Request.Query;
+    var WarehouseId = query["WarehouseId"];
+    var ItemId = query["ItemId"];
+    var BatchId = query["BatchId"];
+    ViewData["Query"] = query;
+    ViewData["ActionName"] = "WarehouseStockReport";
+}
+
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne1">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class='fa fa-search'></i> Search
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne1">
+                        <div class="panel-body">
+                            <form method="get" action="/@controller/WarehouseStockReport">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="WarehouseId">Warehouse</label>
+                                            <div class="controls">
+                                                <select class="form-control" name="WarehouseId" asp-items="ViewBag.Warehouses" id="warehouseId">
+                                                    <option value="">Please Select Warehouse</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="ItemId">Item</label>
+                                            <div class="controls">
+                                                <select class="form-control" name="ItemId" asp-items="ViewBag.Items" id="itemId">
+                                                    <option value="">Please Select Item</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="BatchId">Batch</label>
+                                            <div class="controls">
+                                                <select class="form-control" name="BatchId" asp-items="ViewBag.Batches" id="batchId">
+                                                    <option value="">Please Select Batch</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @*<div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="StartExpiryDate">Expiry Date From</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="StartExpiryDate" value="@StartExpiryDate" id="StartExpiryDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="EndExpiryDate">To Expiry Date</label>
+                                            <div class="controls">
+                                                <input type="date" class="form-control" name="EndExpiryDate" value="@EndExpiryDate" id="EndExpiryDate">
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary gradient-blue">Search</button>
+                                                @*<button type="button" class="btn btn-default" id="btnExcel" onclick="ExcelReport()"><i class="fa fa-file-excel-o">Excel Export</i></button>*@
+                                                <button type="button" data-href="/@controller/WarehouseStockReport" class="btn btn-click">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"></h2>
+                    <div class="actions panel_actions pull-right">
+                        <button data-href="/@controller/DownloadReport" class="btn btn-click btn-primary gradient-blue">DownloadReport</button>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <table id="example" class="display table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Warehouse</th>
+                                        <th>Item (Code)</th>
+                                        <th>Batch</th>
+                                        <th>Qty</th>
+                                        <th>Exipry Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.NearExpiry == true)
+                                        {
+                                            <tr style="background-color:darksalmon">
+                                                <td>@((((int)ViewBag.Page - 1) * (int)ViewBag.PageSize) + count)</td>
+                                                <td>@item.WarehouseName</td>
+                                                <td>@item.ItemName (@item.ItemCode)</td>
+                                                <td>@item.BatchName</td>
+                                                <td>@item.QtyString</td>
+                                                <td>@item.ExpiryDate?.ToString("dd-MM-yyyy")</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>@((((int)ViewBag.Page - 1) * (int)ViewBag.PageSize) + count)</td>
+                                                <td>@item.WarehouseName</td>
+                                                <td>@item.ItemName (@item.ItemCode)</td>
+                                                <td>@item.BatchName</td>
+                                                <td>@item.QtyString</td>
+                                                <td>@item.ExpiryDate?.ToString("dd-MM-yyyy")</td>
+                                            </tr>
+                                        }
+
+                                        count++;
+                                    }
+                                </tbody>
+                            </table>
+                            <partial name="_Pagination" model="Model" view-data="ViewData" />
+                            @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), new X.PagedList.Web.Common.PagedListRenderOptions { UlElementClasses = new String[] { "pagination", "pagination-sm", "pull-right" }, LinkToPreviousPageFormat = "«", LinkToNextPageFormat = "»" })*@
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+        function ExcelReport() {
+            var warehouseId = $('#warehouseId').val();
+            var itemId = $('#itemId').val();
+            var batchId = $('#batchId');
+            var startDate =$('#StartExpiryDate').val();
+            var endDate = $('#EndExpiryDate').val();
+            var url = '/Warehouses/StockExcelExport?WarehouseId=' + warehouseId + "&ItemId=" + itemId + "&BatchId=" + batchId + "&StartExpiryDate=" + startDate + "&EndExpiryDate=" + endDate;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function (e) {
+                if (this.status == 200) {
+                    var d = new Date();
+
+
+                    // $('#pdfContainerReport').show();
+                    var blob = new Blob([this.response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;' });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'WarehouseStock_Report_' + d.getDate() + '.xlsx';
+
+                    document.body.appendChild(link);
+
+                    link.click();
+
+                    //document.body.removeChild(link);
+
+
+                    //var link=document.createElement('a');
+                    //link.href=window.URL.createObjectURL(blob);
+                    //link.download="Report_"+new Date()+".pdf";
+                    //link.click();
+                }
+            };
+            xhr.send();
+
+
+        }
+
+    </script>
+
+} 

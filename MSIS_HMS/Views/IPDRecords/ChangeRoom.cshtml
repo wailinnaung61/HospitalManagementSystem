@@ -1,0 +1,244 @@
+﻿@using MSIS_HMS.Enums;
+@using static MSIS_HMS.Infrastructure.Helpers.DateTimeExtensions;
+@model MSIS_HMS.Core.Entities.IPDAllotment
+@{
+    ViewData["Title"] = "Change Room or Bed";
+
+}
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <div class="content-body">
+                    <partial name="_PartialPatientProfile" model="@Model.IPDRecord" />
+                    <div class="row">
+                        <form action="/IPDRecords/ChangeRoom" method="post">
+                            @Html.AntiForgeryToken()
+                            @if (ViewData["Action"].ToString() == "EditChangeRoom")
+                            {
+                                @Html.Hidden("EditChangeRoom", (object)ViewBag.Action)
+                            }
+                            else
+                            {
+                                @Html.Hidden("ChangeRoom", (object)ViewBag.Action)
+                            }
+                            <input asp-for="IPDRecordId" hidden />
+                            <input asp-for="@Model.Id" hidden />
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Date">Transfer Date</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="date" class="form-control" asp-for="Date">
+                                            <span asp-validation-for="Date" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group" id="departmentdiv">
+                                        <label class="form-label" for="Departments">Departments</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="@Model.IPDRecord.DepartmentId" asp-items="ViewBag.Departments" id="departmentId">
+                                                <option value="">Please Select Department</option>
+                                            </select>
+                                            <span asp-validation-for="@Model.IPDRecord.DepartmentId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 form-group" id="roomsandbedsdiv">
+                                        <label class="form-label" for="">&nbsp;</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AvailableRoomsandBeds" disabled="@(ViewData["Action"].ToString() == "EditChangeRoom")">
+                                                Search Available Rooms and Beds
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="FromRoomId">From Room</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="FromRoomId" asp-items="ViewBag.Rooms" id="field-93" disabled="disabled">
+                                                <option value="">Please Select Room</option>
+                                            </select>
+                                            <span asp-validation-for="FromBedId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Patients">To Room</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="ToRoomId" asp-items="ViewBag.Rooms" id="toroomId" disabled="disabled">
+                                                <option value="">Please Select Room</option>
+                                            </select>
+                                            <span asp-validation-for="ToRoomId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Patients">From Bed</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="FromBedId" asp-items="ViewBag.Beds" id="field-93" disabled="disabled">
+                                                <option value="">Please Select Bed</option>
+                                            </select>
+                                            <span asp-validation-for="FromBedId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="Patients">To Bed</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="ToBedId" asp-items="ViewBag.Beds" id="tobedId" disabled="disabled">
+                                                <option value="">Please Select Bed</option>
+                                            </select>
+                                            <span asp-validation-for="ToBedId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @if (ViewData["Action"].ToString() != "EditChangeRoom")
+                                    {
+                                        <div class="col-md-6 form-group" id="departmentdiv">
+                                            <label class="form-label" for="CheckInTime">CheckIn Time</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" class="form-control" asp-for="CheckInTime" disabled="disabled">
+                                                <span asp-validation-for="CheckInTime" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="NewCheckInTime">New CheckIn Time</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="time" class="form-control" asp-for="NewCheckInTime">
+                                            <span asp-validation-for="NewCheckInTime" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @if (ViewData["Action"].ToString() != "EditChangeRoom")
+                                    {
+                                        <div class="col-md-6 form-group">
+                                            <label class="form-label" for="CheckOutTime">CheckOut Time</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="time" class="form-control" asp-for="CheckOutTime">
+                                                <span asp-validation-for="CheckOutTime" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label" for="Patients">Reason For Transfer</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <textarea type="text" class="form-control" asp-for="Reason" rows=3></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <input class="form-check-input" type="checkbox" asp-for="IsDelete" id="flexCheckDefault">
+                                        <label class="form-label" for="flexCheckDefault">
+                                            Non-Payment
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  padding-bottom-30">
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                    <button type="button" data-href="/IPDRecords/index" class="btn btn-click">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade col-xs-12" id="AvailableRoomsandBeds" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 65%">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <table id="example" class="display table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Ward</th>
+                            <th>Room</th>
+                            <th>Bed</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="AvailableRoomsandBedsTableBody">
+                        </ tbody >
+                        </ table >
+
+                        </ div >
+                        @*<div class="modal-footer">
+                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                            </div>*@
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+    {
+    <script>
+        $("form").submit(function () {
+            $("select").removeAttr("disabled");
+            $("input").removeAttr("disabled");
+        });
+        function onSelectRoomandBed(roomid,bedid = '') {
+            $('#AvailableRoomsandBeds').modal('hide');
+            $("#toroomId").val(roomid).trigger('change');
+            $("#tobedId").val(bedid).trigger('change');
+        }
+
+        $('#AvailableRoomsandBeds').on('show.bs.modal', function (e) {
+            var count=1;
+            var departmentId=$('#departmentId').val();
+            $.ajax({
+                url: `/IPDRecords/GetAvailableRoomsandBeds?departmentId=`+departmentId,
+                type: 'get',
+                success: function (res) {
+                    var html = "";
+                    for (var i = 0; i < res.length; i++) {
+
+                        html += ` <tr>
+                                    <td>${count}</td>
+                                    <td>${res[i].wardName}</td>
+                                    <td>${res[i].roomNo}</td>
+                                    <td></td>`;
+
+                                     html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id})">Select</button></td></tr>`;
+
+                        if(res[i].beds!=null)
+                        {
+                              for(var j=0;j < res[i].beds.length; j++)
+                              {
+                                  count++;
+                                  html += ` <tr>
+                                    <td>${count}</td>
+                                    <td>${res[i].wardName}</td>
+                                    <td>${res[i].roomNo}</td>`;
+                                   html+=`<td>${res[i].beds[j].no}</td>`;
+                                   html+=`<td><button class="btn btn-xs btn-secondary" onclick="onSelectRoomandBed(${res[i].id},${res[i].beds[j].id})">Select</button></td></tr>`;
+                              }
+
+                        }
+
+                        count++;
+                    }
+                    $("#AvailableRoomsandBedsTableBody").html(html);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+
+                }
+            });
+            })
+
+            $('#AvailableRoomsandBeds').on('hidden.bs.modal', function (e) {
+                    $("#AvailableRoomsandBedsTableBody").html("");
+            });
+    </script>
+    }

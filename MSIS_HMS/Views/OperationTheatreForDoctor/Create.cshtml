@@ -1,0 +1,47 @@
+﻿
+@using MSIS_HMS.Enums
+@using MSIS_HMS.Core.Entities
+@model MSIS_HMS.Core.Entities.OperationTreater
+@{
+    ViewData["Title"] = "Create Operation Threater";
+    ViewData["Action"] = ViewEnum.Action.Create.ToDescription();
+}
+
+<partial name="_PartialForm" model="Model" />
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var _id = '@(Model == null ? 0 : Model.Id)';
+        var _tax = '0';
+        var _discount = '0';
+        var _action = '@ViewEnum.Action.Create.ToDescription()';
+        var _error = '@(ViewBag.Error != null ? ViewBag.Error : "")';
+        var _itemType = 'OperationItems';
+        var _serviceType = 'OperationServices';
+
+        var _otDoctorType= 'OT_Doctors';
+        var _otStaffType = 'OT_Staffs';
+        var _otAnaesthetistType = 'OT_Anaesthetists';
+
+        @*var _percentageForSale = '@(Model == null ? 0 : Model.PercentageForSale)';*@
+        var _operationItems = JSON.parse('@Json.Serialize(Model == null ? new List<OperationItem>() : Model.OperationItems == null ? new List<OperationItem>() : Model.OperationItems.ToList())');
+        var _operationServices = JSON.parse('@Json.Serialize(Model == null ? new List<OperationService>() : Model.OperationServices == null ? new List<OperationService>() : Model.OperationServices.ToList())');
+        var _otDoctors = JSON.parse('@Json.Serialize(Model == null ? new List<OT_Doctor>() : Model.OT_Doctors == null ? new List<OT_Doctor>() : Model.OT_Doctors.ToList())');
+        var _otStaffs = JSON.parse('@Json.Serialize(Model == null ? new List<OT_Staff>() : Model.OT_Staffs == null ? new List<OT_Staff>() : Model.OT_Staffs.ToList())');
+        var _otAneasthetist = JSON.parse('@Json.Serialize(Model == null ? new List<OT_Anaesthetist>() : Model.OT_Anaesthetists == null ? new List<OT_Anaesthetist>() : Model.OT_Anaesthetists.ToList())');
+
+    </script>
+    <script src="~/js/react.production.min.js"></script>
+    <script src="~/js/react-dom.production.min.js"></script>
+
+    @*React Select*@
+    <script src="~/js/react/dist/emotion.umd.min.js"></script>
+    <script src="~/js/react/dist/prop-types.min.js"></script>
+    <script src="~/js/react/dist/react-input-autosize.min.js"></script>
+    <script src="~/js/react/dist/react-select.min.js"></script>
+
+    <script src='~/js/babel.js'></script>
+    <script src='~/js/react/react-custom-hooks.js'></script>
+    <script src="~/js/react/OperationTheaterForDoctor.js" type="text/babel"></script>
+}

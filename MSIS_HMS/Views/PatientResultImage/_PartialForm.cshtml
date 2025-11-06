@@ -1,0 +1,62 @@
+﻿@using MSIS_HMS.Enums;
+@model MSIS_HMS.Core.Entities.DTOs.PatientImageDTO;
+<div class="col-xs-12 ">
+    <div class=" bg-w">
+        <div class="col-lg-12 col-xs-12">
+            <section class="box">
+                <header class="panel_header">
+                    <h2 class="title pull-left">Basic Info</h2>
+                    <div class="actions panel_actions pull-right">
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <form action="/PatientResultImage/@ViewData["Action"]" method="post">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="form-label" for="WarehouseId">Patient</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <select class="form-control" asp-for="PatientId" asp-items="ViewBag.Patients">
+                                                <option value="">Please Select Patient</option>
+                                            </select>
+                                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row" id="root"></div>
+                                    @*<div class="col-md-6 form-group">
+                                <span style="color:red;">*</span>
+                                <input type="file" id="fileinput" name="file-input" class="form-control-file">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <button type="submit" class="btn btn-default btn-sm pull-left" id="btnUpload">
+                                    <i class="fa fa-dot-circle-o"></i>
+                                </button>
+                            </div>*@
+                                    <div class="col-md-12 form-group">
+                                        <label class="form-label" for="Remark">Remark</label>
+                                        <span class="desc"></span>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" asp-for="Remark">
+                                            <span asp-validation-for="Remark" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12  padding-bottom-30">
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary gradient-blue">Save</button>
+                                            <button type="button" data-href="/PatientResultImage/index" class="btn btn-click">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+            </section>
+        </div>
+    </div>
+</div>
